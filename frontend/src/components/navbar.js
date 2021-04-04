@@ -8,7 +8,6 @@ import { withRouter } from "react-router";
 class NavBar extends React.Component {
   handleClick = (e) => {
     console.log("click ", typeof e.key);
-    // this.setState({ current: e.key });
     switch (e.key) {
       case "1":
       case "2":

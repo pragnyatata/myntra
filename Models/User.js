@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema({
   },
   insiderPoints: {
     type: Number,
+    default: 0,
   },
 });
 module.exports = User = mongoose.model("User", UserSchema);
