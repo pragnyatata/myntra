@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
 const ScheduleSchema = new mongoose.Schema({
   date: {
     type: Date,
@@ -13,6 +15,10 @@ const ScheduleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  influencerName: {
+    type: String,
+    required: true,
+  },
   slots: {
     type: Number,
     default: 6,
@@ -24,5 +30,16 @@ const ScheduleSchema = new mongoose.Schema({
   url: {
     type: String,
   },
+  userSlots: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+      details: {
+        type: String,
+      },
+    },
+  ],
 });
 module.exports = Schedule = mongoose.model("Schedule", ScheduleSchema);
