@@ -29,10 +29,20 @@ exports.bookSlot = async (req, res) => {
   try {
     const schedule = await Schedule.findById(req.params.scheduleId);
     const user = await User.findById(req.params.userId);
+    if (schedule.userSlots.indexOf((el) => el.user === user) !== -1)
+      return res
+        .status(200)
+        .json({ message: "You have a slot booked already" });
     if (schedule.userSlots.length < schedule.slots) {
-      const slotDetails = { user: user, details: req.body.details };
+      const slotDetails = {
+        user: user,
+        details: req.body.details,
+        phoneNumber: req.body.phoneNumber,
+      };
       schedule.userSlots.push(slotDetails);
-      const saved = schedule.save();
+      const saved = await schedule.save();
+      user.insiderPoints -= schedule.insiderPoints;
+      const user = await user.save();
       return res.status(200).json(saved);
     } else {
       return res.status(200).json({ message: "Slots Filled" });
