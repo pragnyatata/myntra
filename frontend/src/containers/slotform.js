@@ -5,23 +5,21 @@ import { Button, Form } from "antd";
 
 class SlotForm extends React.Component {
   state = {
-    name: "",
+    query: "",
     email: "",
     phone: "",
     points: "",
     conduct: false,
   };
 
-  onFormChange = ({ name, email, phone, conduct }) => {
-    this.setState(
-      {
-        name,
-        email,
-        phone,
-        conduct,
-      },
-      () => console.log(this.state)
-    );
+  onFormChange = ({ query, email, phone, conduct }) => {
+    console.table(query, email, phone, conduct);
+    this.setState({
+      query,
+      email,
+      phone,
+      conduct,
+    });
   };
 
   render() {
@@ -33,13 +31,13 @@ class SlotForm extends React.Component {
         layout="horizontal"
         onFinish={this.onFormChange}
       >
-        <Form.Item
+        {/* <Form.Item
           label="Name"
           name="name"
           rules={[{ required: true, message: "Please input your username!" }]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item
           label="Email"
           name="email"
@@ -56,12 +54,16 @@ class SlotForm extends React.Component {
         >
           <Input />
         </Form.Item>
+        <Form.Item label="Queries to superstars" name="query">
+          <Input />
+        </Form.Item>
         <Form.Item
           name="conduct"
+          valuePropName="checked"
           rules={[{ required: true, message: "Agree to continue" }]}
         >
           <Checkbox>
-            I agress to maintain code of conduct during the live session
+            I agree to maintain code of conduct during the live session
           </Checkbox>
         </Form.Item>
         {/* <Form.Item label="Cascader">
