@@ -5,6 +5,7 @@ import Home from "./containers/home";
 import SlotForm from "./containers/slotform";
 import React from "react";
 import NavBar from "./components/navbar";
+import CreateSlot from "./containers/createslot";
 
 class App extends React.Component {
   render() {
@@ -14,6 +15,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/slot" component={SlotForm} />
+          <Route exact path="/slot/create" component={CreateSlot} />
         </Switch>
       </React.Fragment>
     );

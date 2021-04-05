@@ -40,13 +40,6 @@ class SlotForm extends React.Component {
         layout="horizontal"
         onFinish={this.onFormChange}
       >
-        {/* <Form.Item
-          label="Name"
-          name="name"
-          rules={[{ required: true, message: "Please input your username!" }]}
-        >
-          <Input />
-        </Form.Item> */}
         <Form.Item
           label="Email"
           name="email"
@@ -81,18 +74,6 @@ class SlotForm extends React.Component {
             I agree to maintain code of conduct during the live session
           </Checkbox>
         </Form.Item>
-        {/* <Form.Item label="Cascader">
-          
-        </Form.Item>
-        <Form.Item label="DatePicker">
-          <DatePicker />
-        </Form.Item>
-        <Form.Item label="InputNumber">
-          <InputNumber />
-        </Form.Item>
-        <Form.Item label="Switch">
-          <Switch />
-        </Form.Item> */}
         <Form.Item>
           <Button htmlType="submit">Button</Button>
         </Form.Item>
