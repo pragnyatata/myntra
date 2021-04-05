@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:8000/api";
+const apiUrl = "/api";
 export const slotform = (scheduleId, userId, body) => {
   return fetch(`${apiUrl}/user/slotbook/${scheduleId}/${userId}`, {
     method: "POST",
