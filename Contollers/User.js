@@ -27,12 +27,20 @@ exports.bookSlot = async (req, res) => {
   }
   updatingNetwork = true;
   try {
-    const schedule = await Schedule.findById(req.params.scheduleId);
-    const user = await User.findById(req.params.userId);
-    if (schedule.userSlots.indexOf((el) => el.user === user) !== -1)
+    let schedule = await Schedule.findById(req.params.scheduleId).populate();
+    let user = await User.findById(req.params.userId);
+
+    if (
+      schedule.userSlots.findIndex(
+        (el) => el.user.toString() === user._id.toString()
+      ) !== -1
+    ) {
+      updatingNetwork = false;
       return res
         .status(200)
         .json({ message: "You have a slot booked already" });
+    }
+
     if (schedule.userSlots.length < schedule.slots) {
       const slotDetails = {
         user: user,
@@ -40,11 +48,14 @@ exports.bookSlot = async (req, res) => {
         phoneNumber: req.body.phoneNumber,
       };
       schedule.userSlots.push(slotDetails);
+
       const saved = await schedule.save();
       user.insiderPoints -= schedule.insiderPoints;
-      const user = await user.save();
+      const finalResponse = await user.save();
+      updatingNetwork = false;
       return res.status(200).json(saved);
     } else {
+      updatingNetwork = false;
       return res.status(200).json({ message: "Slots Filled" });
     }
   } catch (err) {
