@@ -31,3 +31,7 @@
   color: #696e79;
   border: none;
 }
+
+.ant-modal-footer {
+  display: none;
+}

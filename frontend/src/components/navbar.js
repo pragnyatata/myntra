@@ -1,11 +1,23 @@
 import React from "react";
-import { Input, Menu } from "antd";
+import { Button, Input, Menu } from "antd";
 import logo from "../assets/logo.png";
 import { Header } from "antd/lib/layout/layout";
 import { SearchOutlined } from "@ant-design/icons";
 import { withRouter } from "react-router";
+import Modal from "antd/lib/modal/Modal";
 
 class NavBar extends React.Component {
+  state = {
+    isModalVisible: false,
+    email: "",
+  };
+  showModal = () => {
+    this.setState({ isModalVisible: true });
+  };
+
+  handleCancel = () => {
+    this.setState({ isModalVisible: false });
+  };
   handleClick = (e) => {
     // console.log("click ", typeof e.key);
     switch (e.key) {
@@ -26,6 +38,9 @@ class NavBar extends React.Component {
       }
     }
   };
+  handleSubmit = () => {
+    console.log(this.state.email);
+  };
   render() {
     return (
       <Header className="home-header">
@@ -41,14 +56,27 @@ class NavBar extends React.Component {
           <Menu.Item key={2}>THEME STORES</Menu.Item>
           <Menu.Item key={3}>LIVE</Menu.Item>
           <Menu.Item key={4}>CONNECT WITH BUDDY</Menu.Item>
-          <Menu.Item>
+          <Input
+            style={{ width: 350, backgroundColor: "0e0e0e" }}
+            size="large"
+            placeholder="Search for products, brands and more"
+            prefix={<SearchOutlined />}
+          />
+          <Button onClick={this.showModal}>LOGIN</Button>
+          <Modal
+            visible={this.state.isModalVisible}
+            closable
+            onCancel={this.handleCancel}
+          >
+            <h2>Enter email id to login</h2>
             <Input
-              style={{ width: 350, backgroundColor: "0e0e0e" }}
-              size="large"
-              placeholder="Search for products, brands and more"
-              prefix={<SearchOutlined />}
+              name="email"
+              value={this.state.email}
+              onChange={(e) => this.setState({ email: e.target.value })}
+              placeholder="superstaruser@myntra.com"
             />
-          </Menu.Item>
+            <Button onClick={this.handleSubmit}>Submit</Button>
+          </Modal>
         </Menu>
       </Header>
     );
