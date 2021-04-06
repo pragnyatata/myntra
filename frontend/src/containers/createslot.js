@@ -5,7 +5,7 @@ import Modal from "antd/lib/modal/Modal";
 import React from "react";
 import { slotLists } from "../apis";
 import CreateSlotModal from "../components/createslotmodal";
-// import ModifySlotModal from "../components/modifyslotmodal";
+import ModifySlotModal from "../components/modifyslotmodal";
 
 class CreateSlot extends React.Component {
   state = {
@@ -76,8 +76,11 @@ class CreateSlot extends React.Component {
           closable
           onCancel={this.handleCancelModify}
         >
-          Hello
-          {/* <ModifySlotModal /> */}
+          <ModifySlotModal
+            live={this.state.existingLive.filter(
+              (liv) => liv._id === this.state.modifyId
+            )}
+          />
         </Modal>
         <div>
           {this.state.existingLive.length ? (
