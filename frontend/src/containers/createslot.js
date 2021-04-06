@@ -2,6 +2,7 @@ import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Popover, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
 import Modal from "antd/lib/modal/Modal";
+import moment from "moment";
 import React from "react";
 import { slotLists } from "../apis";
 import CreateSlotModal from "../components/createslotmodal";
@@ -18,7 +19,7 @@ class CreateSlot extends React.Component {
   componentDidMount() {
     slotLists()
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         let vis = this.state.visible;
         response.map((i) => vis.push(false));
         this.setState({ existingLive: response, visible: vis });
@@ -122,10 +123,20 @@ class CreateSlot extends React.Component {
                   >
                     <Meta
                       title={`Live with ${live.influencerName}`}
-                      description={`Date: ${live.date}`}
+                      description={`Date: ${moment(live.date).format(
+                        "DD/MM/YY"
+                      )}`}
                     />
-                    <Meta description={`Begin time: ${live.beginTime}`} />
-                    <Meta description={`End time: ${live.endTime}`} />
+                    <Meta
+                      description={`Begin time: ${moment(live.beginTime).format(
+                        "HH:mm"
+                      )}`}
+                    />
+                    <Meta
+                      description={`End time: ${moment(live.endTime).format(
+                        "HH:mm"
+                      )}`}
+                    />
                     <Meta description={`Slots: ${live.slots}`} />
                     <Meta
                       description={`Insider Points: ${live.insiderPoints}`}
