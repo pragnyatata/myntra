@@ -1,10 +1,16 @@
 import React from "react";
 import Input from "antd/lib/input/Input";
 import { Button, DatePicker, Form, TimePicker } from "antd";
+import { createSlot } from "../apis";
 
 class CreateSlotModal extends React.Component {
   onFormChange = (values) => {
     console.log(values);
+    createSlot(values)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
   };
   render() {
     const config = {
@@ -49,12 +55,31 @@ class CreateSlotModal extends React.Component {
           <Input />
         </Form.Item>
         <Form.Item
+          label="Influencer Name"
+          name="name"
+          rules={[{ required: true, message: "Please input influencer name!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
           label="Insider Points Required"
           name="points"
           rules={[
             {
               required: true,
               message: "Please input insider points required!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Number of slots"
+          name="slots"
+          rules={[
+            {
+              required: true,
+              message: "Number of slots is required!",
             },
           ]}
         >

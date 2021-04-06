@@ -1,6 +1,7 @@
 import { Button } from "antd";
 import Modal from "antd/lib/modal/Modal";
 import React from "react";
+import { slotLists } from "../apis";
 import CreateSlotModal from "../components/createslotmodal";
 
 class CreateSlot extends React.Component {
@@ -8,6 +9,13 @@ class CreateSlot extends React.Component {
     isModalVisible: false,
     existingLive: [],
   };
+  componentDidMount() {
+    slotLists()
+      .then((response) => {
+        this.setState({ existingLive: response });
+      })
+      .catch((err) => console.log(err));
+  }
   showModal = () => {
     this.setState({ isModalVisible: true });
   };
