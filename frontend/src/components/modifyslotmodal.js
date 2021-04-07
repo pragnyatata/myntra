@@ -9,9 +9,6 @@ class ModifySlotModal extends React.Component {
   };
   render() {
     const liv = this.props.live[0];
-    const date = moment(liv.date).format("DD-MM-YYYY");
-    const beginTime = moment(liv.beginTime).format("HH:mm:ss");
-    const endTime = moment(liv.endTime).format("HH:mm:ss");
     const config = {
       rules: [
         {
@@ -29,7 +26,9 @@ class ModifySlotModal extends React.Component {
         layout="horizontal"
         onFinish={this.onFormChange}
         initialValues={{
-          //   date: moment("2014-02-27T10:00:00").format("DD-MM-YYYY"),
+          date: moment(liv.date),
+          beginTime: moment(liv.beginTime, "HH:mm:ss"),
+          endTime: moment(liv.endTime, "HH:mm:ss"),
           emailInfluencer: liv.influencerEmail,
           name: liv.influencerName,
           points: liv.insiderPoints,
@@ -44,16 +43,13 @@ class ModifySlotModal extends React.Component {
             { required: true, message: "Please input date of live session" },
           ]}
         >
-          <DatePicker
-            defaultValue={moment(date, "DD/MM/YYYY")}
-            format="DD/MM/YYYY"
-          />
+          <DatePicker format="DD/MM/YYYY" />
         </Form.Item>
         <Form.Item name="beginTime" label="Begin Time" {...config}>
-          <TimePicker defaultValue={moment(beginTime, "HH:mm:ss")} />
+          <TimePicker />
         </Form.Item>
         <Form.Item name="endTime" label="End Time" {...config}>
-          <TimePicker defaultValue={moment(endTime, "HH:mm:ss")} />
+          <TimePicker />
         </Form.Item>
         <Form.Item
           label="Influencer Email"

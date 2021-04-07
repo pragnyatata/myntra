@@ -67,6 +67,7 @@ class NavBar extends React.Component {
             visible={this.state.isModalVisible}
             closable
             onCancel={this.handleCancel}
+            className="login-modal"
           >
             <h2>Enter email id to login</h2>
             <Input

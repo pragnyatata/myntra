@@ -1,0 +1,13 @@
+.slot-form {
+  min-height: 90vh;
+  background: #ebebeb;
+  padding: 40px;
+}
+
+.slot-form .ant-form {
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 15px;
+}
