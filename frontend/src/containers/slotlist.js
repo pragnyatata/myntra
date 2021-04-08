@@ -12,9 +12,7 @@ class SlotList extends React.Component {
     slotLists()
       .then((response) => {
         // console.log(response);
-        let vis = this.state.visible;
-        response.map((i) => vis.push(false));
-        this.setState({ existingLive: response, visible: vis });
+        this.setState({ existingLive: response });
       })
       .catch((err) => console.log(err));
   }

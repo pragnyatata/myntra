@@ -16,8 +16,8 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/slot" component={SlotList} />
-          <Route exact path="/slot/:scheduleId" component={SlotForm} />
           <Route exact path="/slot/create" component={CreateSlot} />
+          <Route exact path="/slot/:scheduleId" component={SlotForm} />
         </Switch>
       </React.Fragment>
     );
