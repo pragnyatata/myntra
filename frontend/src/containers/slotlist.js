@@ -1,4 +1,4 @@
-import { Button, Card, Col, Popover, Row } from "antd";
+import { Button, Card, Col, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
 import moment from "moment";
 import React from "react";
@@ -6,11 +6,7 @@ import { slotLists } from "../apis";
 
 class SlotList extends React.Component {
   state = {
-    isModalVisible: false,
-    isModalModifyVisible: false,
     existingLive: [],
-    visible: [],
-    modifyId: "",
   };
   componentDidMount() {
     slotLists()
@@ -22,38 +18,6 @@ class SlotList extends React.Component {
       })
       .catch((err) => console.log(err));
   }
-  modalShow = (id) => {
-    this.setState({ isModalModifyVisible: true, modifyId: id });
-  };
-
-  handleCancelModify = () => {
-    this.setState({ isModalModifyVisible: false });
-  };
-  showModal = () => {
-    this.setState({ isModalVisible: true });
-  };
-
-  handleCancel = () => {
-    this.setState({ isModalVisible: false });
-  };
-
-  hide = (i) => {
-    let vis = [...this.state.visible];
-    vis[i] = false;
-    this.setState({
-      visible: vis,
-    });
-  };
-
-  deleteLive = (id) => {
-    console.log(id);
-  };
-
-  handleVisibleChange = (visible, i) => {
-    let vis = [...this.state.visible];
-    vis[i] = visible;
-    this.setState({ visible: vis });
-  };
 
   render() {
     return (
