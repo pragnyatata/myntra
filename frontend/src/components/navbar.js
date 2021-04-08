@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Input, Menu } from "antd";
 import logo from "../assets/logo.png";
 import { Header } from "antd/lib/layout/layout";
-import { SearchOutlined } from "@ant-design/icons";
 import { withRouter } from "react-router";
 import Modal from "antd/lib/modal/Modal";
 
@@ -36,6 +35,10 @@ class NavBar extends React.Component {
         this.props.history.push("/chat");
         break;
       }
+      case "5": {
+        this.showModal();
+        break;
+      }
     }
   };
   handleSubmit = () => {
@@ -56,13 +59,10 @@ class NavBar extends React.Component {
           <Menu.Item key={2}>THEME STORES</Menu.Item>
           <Menu.Item key={3}>LIVE</Menu.Item>
           <Menu.Item key={4}>CONNECT WITH BUDDY</Menu.Item>
-          <Input
-            style={{ width: 350, backgroundColor: "0e0e0e" }}
-            size="large"
-            placeholder="Search for products, brands and more"
-            prefix={<SearchOutlined />}
-          />
-          <Button onClick={this.showModal}>LOGIN</Button>
+          <Menu.Item key={5}>
+            LOGIN
+            {/* <Button onClick={this.showModal}>LOGIN</Button> */}
+          </Menu.Item>
           <Modal
             visible={this.state.isModalVisible}
             closable

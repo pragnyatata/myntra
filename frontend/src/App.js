@@ -6,6 +6,7 @@ import SlotForm from "./containers/slotform";
 import React from "react";
 import NavBar from "./components/navbar";
 import CreateSlot from "./containers/createslot";
+import SlotList from "./containers/slotlist";
 
 class App extends React.Component {
   render() {
@@ -14,7 +15,8 @@ class App extends React.Component {
         <NavBar />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/slot" component={SlotForm} />
+          <Route exact path="/slot" component={SlotList} />
+          <Route exact path="/slot/:scheduleId" component={SlotForm} />
           <Route exact path="/slot/create" component={CreateSlot} />
         </Switch>
       </React.Fragment>
