@@ -27,8 +27,8 @@ class ModifySlotModal extends React.Component {
     return (
       <Form
         name="basic"
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 14 }}
+        labelCol={{ span: 9 }}
+        wrapperCol={{ span: 9 }}
         layout="horizontal"
         onFinish={this.onFormChange}
         initialValues={{
