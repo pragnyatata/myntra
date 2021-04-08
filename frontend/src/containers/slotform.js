@@ -14,12 +14,15 @@ class SlotForm extends React.Component {
     conduct: false,
   };
 
-  onFormChange = ({ query, email, phone, conduct, scheduleId, userId }) => {
-    console.table(query, email, phone, conduct, scheduleId, userId);
+  onFormChange = ({ query, email, phone, conduct }) => {
     const body = {};
     body.details = query;
     body.phoneNumber = phone;
-    slotform(scheduleId, userId, body)
+    slotform(
+      this.props.match.params.scheduleId,
+      localStorage.getItem("user"),
+      body
+    )
       .then((response) => {
         console.log(response);
       })
@@ -43,13 +46,6 @@ class SlotForm extends React.Component {
           onFinish={this.onFormChange}
         >
           <Form.Item
-            label="Email"
-            name="email"
-            rules={[{ required: true, message: "Please input your email!" }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
             label="Mobile No."
             name="phone"
             rules={[
@@ -61,12 +57,7 @@ class SlotForm extends React.Component {
           <Form.Item label="Queries to superstars" name="query">
             <Input />
           </Form.Item>
-          <Form.Item label="ScheduleId" name="scheduleId">
-            <Input />
-          </Form.Item>
-          <Form.Item label="UserId" name="userId">
-            <Input />
-          </Form.Item>
+          {console.log(localStorage.getItem("user"))}
           <Form.Item
             name="conduct"
             valuePropName="checked"

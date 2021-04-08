@@ -94,3 +94,20 @@ export const deleteSlot = (scheduleId) => {
     })
     .catch((err) => console.log(err));
 };
+export const login = (email) => {
+  return fetch(`${apiUrl}/user/login`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+    }),
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => console.log(err));
+};

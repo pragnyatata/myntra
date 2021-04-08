@@ -3,10 +3,18 @@ import Meta from "antd/lib/card/Meta";
 import moment from "moment";
 import React from "react";
 import { slotLists } from "../apis";
-
+import Modal from "antd/lib/modal/Modal";
 class SlotList extends React.Component {
   state = {
     existingLive: [],
+    isModalVisible: false,
+  };
+  showModal = () => {
+    this.setState({ isModalVisible: true });
+  };
+
+  handleCancel = () => {
+    this.setState({ isModalVisible: false });
   };
   componentDidMount() {
     slotLists()
@@ -20,6 +28,15 @@ class SlotList extends React.Component {
   render() {
     return (
       <div>
+        <Modal
+          visible={this.state.isModalVisible}
+          closable
+          onCancel={this.handleCancel}
+          className="login-modal"
+        >
+          <h2>Login First</h2>
+        </Modal>
+        ,
         {this.state.existingLive.length ? (
           <Row gutter={16}>
             {this.state.existingLive.map((live, i) => (
@@ -28,9 +45,11 @@ class SlotList extends React.Component {
                   style={{ width: 300 }}
                   actions={[
                     <Button
-                      onClick={() =>
-                        this.props.history.push(`/slot/${live._id}`)
-                      }
+                      onClick={() => {
+                        if (localStorage.getItem("user") !== null)
+                          return this.props.history.push(`/slot/${live._id}`);
+                        else return this.showModal();
+                      }}
                     >
                       Book
                     </Button>,
