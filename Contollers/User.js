@@ -1,5 +1,18 @@
 const Schedule = require("../Models/Schedule");
 const User = require("../Models/User");
+exports.login = async (req, res) => {
+  const { email } = req.body;
+  try {
+    let user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ msg: "User not found" });
+    }
+    return res.status(200).json({ user });
+  } catch (err) {
+    console.log(err.message);
+    if (err) return res.status(500).json({ error: "Something went wrong" });
+  }
+};
 exports.create = async (req, res) => {
   const { name, email, insiderPoints } = req.body;
   try {

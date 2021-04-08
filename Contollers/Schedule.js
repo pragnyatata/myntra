@@ -65,3 +65,13 @@ exports.update = async (req, res) => {
     if (err) return res.status(500).json({ error: "Something went wrong" });
   }
 };
+exports.deleteSchedule = async (req, res) => {
+  try {
+    let schedule = await Schedule.findById(req.params.id);
+    await schedule.remove();
+    return res.status(200).json({ msg: "Schedule removed" });
+  } catch (err) {
+    console.log(err.message);
+    if (err) return res.status(500).json({ error: "Something went wrong" });
+  }
+};
