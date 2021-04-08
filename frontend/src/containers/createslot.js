@@ -4,7 +4,7 @@ import Meta from "antd/lib/card/Meta";
 import Modal from "antd/lib/modal/Modal";
 import moment from "moment";
 import React from "react";
-import { slotLists } from "../apis";
+import { deleteSlot, slotLists } from "../apis";
 import CreateSlotModal from "../components/createslotmodal";
 import ModifySlotModal from "../components/modifyslotmodal";
 
@@ -50,7 +50,9 @@ class CreateSlot extends React.Component {
   };
 
   deleteLive = (id) => {
-    console.log(id);
+    deleteSlot(id)
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
   };
 
   handleVisibleChange = (visible, i) => {

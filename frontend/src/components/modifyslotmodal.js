@@ -2,10 +2,16 @@ import React from "react";
 import Input from "antd/lib/input/Input";
 import { Button, DatePicker, Form, TimePicker } from "antd";
 import moment from "moment";
+import { modifySlot } from "../apis";
 
 class ModifySlotModal extends React.Component {
   onFormChange = (values) => {
     console.log(values);
+    modifySlot(values, this.props.live[0]._id)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
   };
   render() {
     const liv = this.props.live[0];
