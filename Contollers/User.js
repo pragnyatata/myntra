@@ -24,6 +24,26 @@ exports.create = async (req, res) => {
     if (err) return res.status(500).json({ error: "Something went wrong" });
   }
 };
+exports.addSocketId = async (userId, socketId, room) => {
+  try {
+    const user = await User.findById(userId);
+    user.socketId = socketId;
+    user.room = room;
+    await user.save();
+    return { user };
+  } catch (err) {
+    if (err) return { error: "Something went wrong" };
+  }
+};
+exports.getUserBySocketId = async (id) => {
+  try {
+    const user = await User.findOne({ socketId: id });
+    console.log("i am the user", user);
+    return user;
+  } catch (err) {
+    if (err) return { error: "Something went wrong" };
+  }
+};
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);

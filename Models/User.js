@@ -13,5 +13,15 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  socketId: {
+    type: String,
+  },
+  room: {
+    type: String,
+  },
+  role: {
+    type: String,
+    default: "user",
+  },
 });
 module.exports = User = mongoose.model("User", UserSchema);
