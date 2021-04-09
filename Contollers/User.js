@@ -1,5 +1,6 @@
 const Schedule = require("../Models/Schedule");
 const User = require("../Models/User");
+const Buddy = require("../Models/MyntraBuddy");
 exports.login = async (req, res) => {
   const { email } = req.body;
   try {
@@ -91,6 +92,30 @@ exports.bookSlot = async (req, res) => {
       updatingNetwork = false;
       return res.status(200).json({ message: "Slots Filled" });
     }
+  } catch (err) {
+    console.log(err.message);
+    if (err) return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+exports.createBuddy = async (req, res) => {
+  try {
+    const queue = [];
+    const newBuddy = Buddy({ queue });
+    const user = await newBuddy.save();
+    return res.status(200).json(user);
+  } catch (err) {
+    console.log(err.message);
+    if (err) return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+exports.pushBuddy = async (req, res) => {
+  try {
+    const buddies = await Buddy.find().populate("queue.user");
+    let myBuddy = buddies[0];
+    const userBuddy = await User.findById(req.params.id);
+    myBuddy.queue.push(userBuddy);
+    const result = await myBuddy.save();
+    return res.status(200).json(result);
   } catch (err) {
     console.log(err.message);
     if (err) return res.status(500).json({ error: "Something went wrong" });

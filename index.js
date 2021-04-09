@@ -28,10 +28,9 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const PORT = process.env.PORT || 8000;
-let interval;
 io.on("connection", (socket) => {
   socket.on("join", async ({ userId, room }, callback) => {
-    console.log(userId);
+    console.log("HEre is ur room ni", room);
 
     const { error, user } = await addSocketId(userId, socket.id, room);
     if (error) return callback(error);

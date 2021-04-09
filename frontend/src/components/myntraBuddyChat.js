@@ -4,7 +4,7 @@ import { Input } from "antd";
 
 let socket;
 const ENDPOINT = "localhost:8000";
-const Chat = ({ location }) => {
+const BuddyChatSocket = ({}) => {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
   const [users, setUsers] = useState("");
@@ -18,13 +18,13 @@ const Chat = ({ location }) => {
     const userId = localStorage.getItem("user");
     setRoom(userId);
     setName(userId);
-
-    socket.emit("join", { userId, userId }, () => {});
+    let room = userId;
+    socket.emit("join", { userId, room }, () => {});
     return () => {
       socket.emit("disconnect");
       socket.off();
     };
-  }, [ENDPOINT, location.search]);
+  }, [ENDPOINT]);
   useEffect(() => {
     socket.on("message", (message) => {
       setMessages([...messages, message]);
@@ -52,4 +52,4 @@ const Chat = ({ location }) => {
   );
 };
 
-export default Chat;
+export default BuddyChatSocket;
