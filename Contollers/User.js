@@ -121,3 +121,16 @@ exports.pushBuddy = async (req, res) => {
     if (err) return res.status(500).json({ error: "Something went wrong" });
   }
 };
+exports.buddyCount = async (req, res) => {
+  try {
+    const buddies = await Buddy.find().populate("queue.user");
+    let myBuddy = buddies[0];
+    length = myBuddy.queue.length;
+    let id = myBuddy.queue.shift();
+    await myBuddy.save();
+    return res.status(200).json({ length: myBuddy.queue.length, id });
+  } catch (err) {
+    console.log(err.message);
+    if (err) return res.status(500).json({ error: "Something went wrong" });
+  }
+};

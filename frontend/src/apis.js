@@ -125,3 +125,17 @@ export const buddyPush = (id) => {
     })
     .catch((err) => console.log(err));
 };
+export const buddyCount = (id) => {
+  return fetch(`${apiUrl}/user/buddyCount`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => console.log(err));
+};

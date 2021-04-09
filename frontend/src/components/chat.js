@@ -16,10 +16,10 @@ const Chat = ({ location }) => {
     console.log(socket);
 
     const userId = localStorage.getItem("user");
-    setRoom(userId);
+    setRoom(this.props.match.params.roomId);
     setName(userId);
 
-    socket.emit("join", { userId }, () => {});
+    socket.emit("join", { userId, room }, () => {});
     return () => {
       socket.emit("disconnect");
       socket.off();
