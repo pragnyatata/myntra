@@ -7,12 +7,9 @@ import React from "react";
 import NavBar from "./components/navbar";
 import CreateSlot from "./containers/createslot";
 import SlotList from "./containers/slotlist";
-<<<<<<< HEAD
 import Chat from "./components/chat";
-=======
 import LiveStream from "./containers/livestream";
 import BuddyChat from "./containers/buddychat";
->>>>>>> fbcb7f3072d969217b2932d077c353dce078c774
 
 class App extends React.Component {
   render() {
@@ -24,12 +21,9 @@ class App extends React.Component {
           <Route exact path="/slot" component={SlotList} />
           <Route exact path="/slot/create" component={CreateSlot} />
           <Route exact path="/slot/:scheduleId" component={SlotForm} />
-<<<<<<< HEAD
           <Route exact path="/chat" component={Chat} />
-=======
           <Route exact path="/live/:url" component={LiveStream} />
           <Route exact path="/buddy/chat" component={BuddyChat} />
->>>>>>> fbcb7f3072d969217b2932d077c353dce078c774
         </Switch>
       </React.Fragment>
     );
