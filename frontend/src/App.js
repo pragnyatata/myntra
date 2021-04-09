@@ -7,6 +7,8 @@ import React from "react";
 import NavBar from "./components/navbar";
 import CreateSlot from "./containers/createslot";
 import SlotList from "./containers/slotlist";
+import LiveStream from "./containers/livestream";
+import BuddyChat from "./containers/buddychat";
 
 class App extends React.Component {
   render() {
@@ -18,6 +20,8 @@ class App extends React.Component {
           <Route exact path="/slot" component={SlotList} />
           <Route exact path="/slot/create" component={CreateSlot} />
           <Route exact path="/slot/:scheduleId" component={SlotForm} />
+          <Route exact path="/live/:url" component={LiveStream} />
+          <Route exact path="/buddy/chat" component={BuddyChat} />
         </Switch>
       </React.Fragment>
     );

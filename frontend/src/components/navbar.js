@@ -52,8 +52,13 @@ class NavBar extends React.Component {
     login(this.state.email)
       .then((response) => {
         if (response.user !== undefined) {
-          window.location = "/";
+          if (response.user.role === "user") {
+            window.location = "/";
+          } else {
+            window.location = "/buddy/chat";
+          }
           localStorage.setItem("user", response.user._id);
+          localStorage.setItem("role", response.user.role);
         } else {
           this.setState({ error: "User not found" });
         }

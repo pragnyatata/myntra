@@ -8,7 +8,7 @@ class CreateSlotModal extends React.Component {
     console.log(values);
     createSlot(values)
       .then((response) => {
-        console.log(response);
+        this.props.updateList(response);
       })
       .catch((err) => console.log(err));
   };

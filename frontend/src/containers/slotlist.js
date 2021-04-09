@@ -1,4 +1,4 @@
-import { Button, Card, Col, Row } from "antd";
+import { Card, Col, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
 import moment from "moment";
 import React from "react";
@@ -26,6 +26,8 @@ class SlotList extends React.Component {
   }
 
   render() {
+    const today = new Date();
+
     return (
       <div>
         <Modal
@@ -43,17 +45,32 @@ class SlotList extends React.Component {
               <Col key={i} span={8}>
                 <Card
                   style={{ width: 300 }}
-                  actions={[
-                    <Button
-                      onClick={() => {
-                        if (localStorage.getItem("user") !== null)
-                          return this.props.history.push(`/slot/${live._id}`);
-                        else return this.showModal();
-                      }}
-                    >
-                      Book
-                    </Button>,
-                  ]}
+                  actions={
+                    moment(live.date).format("YYYY-MM-DD") !==
+                    today.toISOString().split("T")[0]
+                      ? [
+                          <div
+                            onClick={() => {
+                              if (localStorage.getItem("user") !== null)
+                                return this.props.history.push(
+                                  `/slot/${live._id}`
+                                );
+                              else return this.showModal();
+                            }}
+                          >
+                            Book
+                          </div>,
+                        ]
+                      : [
+                          <div
+                            onClick={() =>
+                              this.props.history.push(`/live/${live.url}`)
+                            }
+                          >
+                            Join the live!!
+                          </div>,
+                        ]
+                  }
                 >
                   <Meta
                     title={`Live with ${live.influencerName}`}
