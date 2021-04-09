@@ -1,0 +1,22 @@
+.login-modal .ant-modal-body {
+  text-align: center;
+}
+
+.login-modal .ant-modal-body h3 {
+  border-bottom: 2px solid #f51cb3;
+  padding-bottom: 0.5em;
+  color: #f25512;
+}
+
+.login-modal .ant-modal-body input {
+  margin: 40px 60px 20px;
+  width: 60%;
+}
+
+.login-modal .ant-modal-body .ant-btn {
+  width: 60%;
+  background: linear-gradient(to bottom right, #ff912f, #f691d7, #ff912f);
+  margin: 10px 0;
+  color: #fff;
+  font-weight: 700;
+}

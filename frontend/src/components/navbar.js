@@ -5,6 +5,9 @@ import { Header } from "antd/lib/layout/layout";
 import { withRouter } from "react-router";
 import Modal from "antd/lib/modal/Modal";
 import { login } from "../apis";
+import "../css/navbar.css";
+import Form from "antd/lib/form/Form";
+
 class NavBar extends React.Component {
   state = {
     isModalVisible: false,
@@ -47,10 +50,11 @@ class NavBar extends React.Component {
       }
     }
   };
-  handleSubmit = () => {
+  handleSubmit = ({ email }) => {
     console.log(this.state.email);
-    login(this.state.email)
+    login(email)
       .then((response) => {
+        console.log(response.user);
         if (response.user !== undefined) {
           if (response.user.role === "user") {
             window.location = "/";
@@ -84,10 +88,7 @@ class NavBar extends React.Component {
             <Menu.Item key={6}>LOGOUT</Menu.Item>
           )}
           {!localStorage.getItem("user") && (
-            <Menu.Item key={5}>
-              LOGIN
-              {/* <Button onClick={this.showModal}>LOGIN</Button> */}
-            </Menu.Item>
+            <Menu.Item key={5}>LOGIN</Menu.Item>
           )}
           <Modal
             visible={this.state.isModalVisible}
@@ -95,17 +96,22 @@ class NavBar extends React.Component {
             onCancel={this.handleCancel}
             className="login-modal"
           >
-            <h2>Enter email id to login</h2>
-            <Input
-              name="email"
-              value={this.state.email}
-              onChange={(e) => {
-                this.setState({ email: e.target.value, error: "" });
-              }}
-              placeholder="superstaruser@myntra.com"
-            />
-            <Button onClick={this.handleSubmit}>Submit</Button>
-            <div>{this.state.error}</div>
+            <h3>SIGN IN</h3>
+            <Form layout="horizontal" onFinish={this.handleSubmit}>
+              <Form.Item
+                name="email"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your mobile number!",
+                  },
+                ]}
+              >
+                <Input placeholder="superstaruser@myntra.com" />
+              </Form.Item>
+              <Button htmlType="submit">Submit</Button>
+            </Form>
+            <div className="err">{this.state.error}</div>
           </Modal>
         </Menu>
       </Header>

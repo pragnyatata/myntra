@@ -7,6 +7,7 @@ import React from "react";
 import { deleteSlot, slotLists } from "../apis";
 import CreateSlotModal from "../components/createslotmodal";
 import ModifySlotModal from "../components/modifyslotmodal";
+import img from "../assets/createslot.svg";
 
 class CreateSlot extends React.Component {
   state = {
@@ -103,68 +104,97 @@ class CreateSlot extends React.Component {
         </Modal>
         <div>
           {this.state.existingLive.length ? (
-            <Row gutter={16}>
-              {this.state.existingLive.map((live, i) => (
-                <Col key={i} span={8}>
-                  <Card
-                    style={{ width: 300 }}
-                    actions={[
-                      <EditOutlined
-                        key="edit"
-                        onClick={() => this.modalShow(live._id)}
-                      />,
-                      <Popover
-                        content={
-                          <div>
-                            <p>
-                              Are you sure you want to delete the scheduled
-                              live?
-                            </p>
-                            <Button
-                              type="primary"
-                              onClick={() => {
-                                this.deleteLive(live._id, i);
-                              }}
-                            >
-                              Yes
-                            </Button>
-                            <Button onClick={() => this.hide(i)}>No</Button>
-                          </div>
-                        }
-                        trigger="click"
-                        visible={this.state.visible[i]}
-                        onVisibleChange={(visible) =>
-                          this.handleVisibleChange(visible, i)
-                        }
+            <Row className="slot-list">
+              <Col md={12} sm={24}>
+                <Row>
+                  {this.state.existingLive.map((live, i) => (
+                    <Col key={i} md={12} sm={24}>
+                      <Card
+                        style={{ width: 250 }}
+                        className="slot-card"
+                        actions={[
+                          <EditOutlined
+                            key="edit"
+                            onClick={() => this.modalShow(live._id)}
+                            className="action-button"
+                          />,
+                          <Popover
+                            content={
+                              <div>
+                                <p>
+                                  Are you sure you want to delete the scheduled
+                                  live?
+                                </p>
+                                <Button
+                                  type="primary"
+                                  onClick={() => {
+                                    this.deleteLive(live._id, i);
+                                  }}
+                                >
+                                  Yes
+                                </Button>
+                                <Button onClick={() => this.hide(i)}>No</Button>
+                              </div>
+                            }
+                            trigger="click"
+                            visible={this.state.visible[i]}
+                            onVisibleChange={(visible) =>
+                              this.handleVisibleChange(visible, i)
+                            }
+                          >
+                            <CloseOutlined
+                              key="delete"
+                              className="action-button"
+                            />
+                          </Popover>,
+                        ]}
                       >
-                        <CloseOutlined key="delete" />
-                      </Popover>,
-                    ]}
-                  >
-                    <Meta
-                      title={`Live with ${live.influencerName}`}
-                      description={`Date: ${moment(live.date).format(
-                        "DD/MM/YY"
-                      )}`}
-                    />
-                    <Meta
-                      description={`Begin time: ${moment(live.beginTime).format(
-                        "HH:mm"
-                      )}`}
-                    />
-                    <Meta
-                      description={`End time: ${moment(live.endTime).format(
-                        "HH:mm"
-                      )}`}
-                    />
-                    <Meta description={`Slots: ${live.slots}`} />
-                    <Meta
-                      description={`Insider Points: ${live.insiderPoints}`}
-                    />
-                    <Meta description={`Youtube URL: ${live.url}`} />
-                  </Card>
-                </Col>
-              ))}
+                        <Meta
+                          className="card-title"
+                          title={`Live with ${live.influencerName}`}
+                        />
+                        <Meta
+                          className="date"
+                          description={`Date: ${moment(live.date).format(
+                            "DD/MM/YY"
+                          )}`}
+                        />
+                        <Meta
+                          className="start"
+                          description={`Begin time: ${moment(
+                            live.beginTime
+                          ).format("HH:mm")}`}
+                        />
+                        <Meta
+                          className="end"
+                          description={`End time: ${moment(live.endTime).format(
+                            "HH:mm"
+                          )}`}
+                        />
+                        <Meta
+                          className="start"
+                          description={`Slots: ${live.slots}`}
+                        />
+                        <Meta
+                          className="end"
+                          description={`Insider Points: ${live.insiderPoints}`}
+                        />
+                        <Meta
+                          className="end"
+                          description={`Youtube URL: ${live.url}`}
+                        />
+                      </Card>
+                    </Col>
+                  ))}
+                </Row>
+              </Col>
+              <Col md={12} sm={24} style={{ display: "flex" }}>
+                <img
+                  style={{ width: "80%", margin: "0 auto" }}
+                  src={img}
+                  alt="Online Colloboration"
+                />
+              </Col>
             </Row>
           ) : (
             <div>No live sessions scheduled. Create one.</div>
