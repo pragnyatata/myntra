@@ -49,9 +49,15 @@ class CreateSlot extends React.Component {
     });
   };
 
-  deleteLive = (id) => {
+  deleteLive = (id, i) => {
     deleteSlot(id)
-      .then((response) => console.log(response))
+      .then((response) => {
+        // console.log(response);
+        let old = [...this.state.existingLive];
+        let newList = old.filter((i) => i._id !== id);
+        this.setState({ existingLive: newList });
+        this.hide(i);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -59,6 +65,15 @@ class CreateSlot extends React.Component {
     let vis = [...this.state.visible];
     vis[i] = visible;
     this.setState({ visible: vis });
+  };
+
+  modifyList = (obj) => {
+    // console.log(obj);
+    let list = this.state.existingLive.filter((liv) => liv._id !== obj._id);
+    list.push(obj);
+    this.setState({ existingLive: list });
+    this.handleCancelModify();
+    this.handleCancel();
   };
 
   render() {
@@ -72,7 +87,7 @@ class CreateSlot extends React.Component {
           closable
           onCancel={this.handleCancel}
         >
-          <CreateSlotModal />
+          <CreateSlotModal updateList={(list) => this.modifyList(list)} />
         </Modal>
         <Modal
           visible={this.state.isModalModifyVisible}
@@ -83,6 +98,7 @@ class CreateSlot extends React.Component {
             live={this.state.existingLive.filter(
               (liv) => liv._id === this.state.modifyId
             )}
+            updateList={(list) => this.modifyList(list)}
           />
         </Modal>
         <div>
@@ -106,7 +122,9 @@ class CreateSlot extends React.Component {
                             </p>
                             <Button
                               type="primary"
-                              onClick={() => this.deleteLive(live._id)}
+                              onClick={() => {
+                                this.deleteLive(live._id, i);
+                              }}
                             >
                               Yes
                             </Button>
