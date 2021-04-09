@@ -33,7 +33,7 @@ class NavBar extends React.Component {
         break;
       }
       case "4": {
-        this.props.history.push("/chat");
+        this.props.history.push("/user/chat");
         break;
       }
       case "5": {

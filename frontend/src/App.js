@@ -10,6 +10,7 @@ import SlotList from "./containers/slotlist";
 import Chat from "./components/chat";
 import LiveStream from "./containers/livestream";
 import BuddyChat from "./containers/buddychat";
+import UserChat from "./containers/userchat";
 
 class App extends React.Component {
   render() {
@@ -22,6 +23,7 @@ class App extends React.Component {
           <Route exact path="/slot/create" component={CreateSlot} />
           <Route exact path="/slot/:scheduleId" component={SlotForm} />
           <Route exact path="/chat" component={Chat} />
+          <Route exact path="/user/chat" component={UserChat} />
           <Route exact path="/live/:url" component={LiveStream} />
           <Route exact path="/buddy/chat" component={BuddyChat} />
         </Switch>

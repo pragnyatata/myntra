@@ -27,8 +27,6 @@ class SlotList extends React.Component {
 
   render() {
     const today = new Date();
-    const nowTime = today.toLocaleTimeString();
-    console.log(nowTime);
 
     return (
       <div>
