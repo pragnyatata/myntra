@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import { Button, Input, Menu } from "antd";
 
 let socket;
-const ENDPOINT = "localhost:8000";
+const ENDPOINT = "https://myntraweforshe.herokuapp.com/";
 const Chat = ({ location, match }) => {
   const [name, setName] = useState("");
   const [users, setUsers] = useState("");
