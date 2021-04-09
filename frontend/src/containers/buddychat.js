@@ -14,7 +14,7 @@ class BuddyChat extends React.Component {
     if (checked) {
       buddyPush(localStorage.getItem("user"))
         .then((response) => {
-          console.log(response);
+          // console.log(response);
         })
         .catch((err) => console.log(err));
     }

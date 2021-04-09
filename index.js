@@ -30,12 +30,10 @@ if (process.env.NODE_ENV === "production") {
 const PORT = process.env.PORT || 8000;
 io.on("connection", (socket) => {
   socket.on("join", async ({ userId, room }, callback) => {
-    console.log("HEre is ur room ni", room);
-
     const { error, user } = await addSocketId(userId, socket.id, room);
-    if (error) return callback(error);
+    if (error || user === null) return callback(error);
     socket.join(room);
-
+    console.log(`${user.name} joined`);
     socket.emit("message", {
       user: "admin",
       text: `${user.name}, welcome to room ${room}.`,
@@ -48,13 +46,16 @@ io.on("connection", (socket) => {
   });
   socket.on("sendMessage", async (message, callback) => {
     const user = await getUserBySocketId(socket.id);
-    console.log(user);
     io.in(user.room).emit("message", { user: user.name, text: message });
     callback();
   });
 
   socket.on("disconnect", () => {
     console.log("User left");
+  });
+  socket.on("leaveRoom", async (room, callback) => {
+    io.socketsLeave(room);
+    callback();
   });
 });
 

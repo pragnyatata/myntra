@@ -39,7 +39,6 @@ exports.addSocketId = async (userId, socketId, room) => {
 exports.getUserBySocketId = async (id) => {
   try {
     const user = await User.findOne({ socketId: id });
-    console.log("i am the user", user);
     return user;
   } catch (err) {
     if (err) return { error: "Something went wrong" };
