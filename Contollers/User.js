@@ -113,7 +113,11 @@ exports.pushBuddy = async (req, res) => {
     const buddies = await Buddy.find().populate("queue.user");
     let myBuddy = buddies[0];
     const userBuddy = await User.findById(req.params.id);
-    myBuddy.queue.push(userBuddy);
+    let index = myBuddy.queue.findIndex(
+      (el) => el._id.toString() === userBuddy._id.toString()
+    );
+    if (index === -1) myBuddy.queue.push(userBuddy);
+    console.log(index);
     const result = await myBuddy.save();
     return res.status(200).json(result);
   } catch (err) {
@@ -126,9 +130,10 @@ exports.buddyCount = async (req, res) => {
     const buddies = await Buddy.find().populate("queue.user");
     let myBuddy = buddies[0];
     length = myBuddy.queue.length;
-    let id = myBuddy.queue.shift();
+    let id = myBuddy.queue.shift()._id.toString();
+    console.log(id);
     await myBuddy.save();
-    return res.status(200).json({ length: myBuddy.queue.length, id });
+    return res.status(200).json({ length, id });
   } catch (err) {
     console.log(err.message);
     if (err) return res.status(500).json({ error: "Something went wrong" });

@@ -4,9 +4,8 @@ import { Button, Input, Menu } from "antd";
 
 let socket;
 const ENDPOINT = "localhost:8000";
-const Chat = ({ location }) => {
+const Chat = ({ location, match }) => {
   const [name, setName] = useState("");
-  const [room, setRoom] = useState("");
   const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -16,7 +15,8 @@ const Chat = ({ location }) => {
     console.log(socket);
 
     const userId = localStorage.getItem("user");
-    setRoom(this.props.match.params.roomId);
+    console.log(match.params.roomId);
+    let room = match.params.roomId;
     setName(userId);
 
     socket.emit("join", { userId, room }, () => {});

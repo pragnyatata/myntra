@@ -24,7 +24,7 @@ const BuddyChatSocket = ({}) => {
       socket.emit("disconnect");
       socket.off();
     };
-  }, [ENDPOINT]);
+  }, []);
   useEffect(() => {
     socket.on("message", (message) => {
       setMessages([...messages, message]);
