@@ -27,6 +27,8 @@ class SlotList extends React.Component {
 
   render() {
     const today = new Date();
+    const nowTime = today.toLocaleTimeString();
+    console.log(nowTime);
 
     return (
       <div>
@@ -46,8 +48,8 @@ class SlotList extends React.Component {
                 <Card
                   style={{ width: 300 }}
                   actions={
-                    moment(live.date).format("YYYY-MM-DD") !==
-                    today.toISOString().split("T")[0]
+                    moment(live.date).format("M/D/YYYY") !==
+                    today.toLocaleDateString()
                       ? [
                           <div
                             onClick={() => {
