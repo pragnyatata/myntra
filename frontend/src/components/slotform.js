@@ -46,42 +46,71 @@ class SlotForm extends React.Component {
     const tailLayout2 = {
       wrapperCol: { offset: 10, span: 14 },
     };
+    const userPoints = JSON.parse(localStorage.getItem("data")).insiderPoints;
+    const reqPoints = this.props.points;
     return (
       <div className="slot-form">
-        <Form
-          name="basic"
-          labelCol={{ span: 9 }}
-          wrapperCol={{ span: 9 }}
-          layout="horizontal"
-          onFinish={this.onFormChange}
-        >
-          <Form.Item
-            label="Mobile No."
-            name="phone"
-            rules={[
-              { required: true, message: "Please input your mobile number!" },
-            ]}
+        <div className="start">
+          Required Insider Points:{" "}
+          <span
+            style={
+              reqPoints > userPoints ? { color: "red" } : { color: "green" }
+            }
           >
-            <Input />
-          </Form.Item>
-          <Form.Item label="Queries to superstars" name="query">
-            <Input />
-          </Form.Item>
-          {console.log(localStorage.getItem("user"))}
-          <Form.Item
-            name="conduct"
-            valuePropName="checked"
-            rules={[{ required: true, message: "Agree to continue" }]}
-            {...tailLayout}
+            {reqPoints}
+          </span>
+        </div>
+        <div className="end">
+          User's Insider Points:{" "}
+          <span
+            style={
+              reqPoints > userPoints ? { color: "red" } : { color: "green" }
+            }
           >
-            <Checkbox>
-              I agree to maintain code of conduct during the live session
-            </Checkbox>
-          </Form.Item>
-          <Form.Item {...tailLayout2}>
-            <Button htmlType="submit">Submit</Button>
-          </Form.Item>
-        </Form>
+            {userPoints}
+          </span>
+        </div>
+        {!(reqPoints > userPoints) ? (
+          <Form
+            name="basic"
+            labelCol={{ span: 9 }}
+            wrapperCol={{ span: 9 }}
+            layout="horizontal"
+            onFinish={this.onFormChange}
+          >
+            <Form.Item
+              label="Mobile No."
+              name="phone"
+              rules={[
+                { required: true, message: "Please input your mobile number!" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item label="Queries to superstars" name="query">
+              <Input />
+            </Form.Item>
+            {console.log(localStorage.getItem("user"))}
+            <Form.Item
+              name="conduct"
+              valuePropName="checked"
+              rules={[{ required: true, message: "Agree to continue" }]}
+              {...tailLayout}
+            >
+              <Checkbox>
+                I agree to maintain code of conduct during the live session
+              </Checkbox>
+            </Form.Item>
+            <Form.Item {...tailLayout2}>
+              <Button htmlType="submit">Submit</Button>
+            </Form.Item>
+          </Form>
+        ) : (
+          <div className="start" style={{ color: "red" }}>
+            Due to less Insider Points, you cannot book this live. Try again
+            later.
+          </div>
+        )}
       </div>
     );
   }

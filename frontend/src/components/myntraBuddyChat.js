@@ -108,7 +108,7 @@ const BuddyChatSocket = ({}) => {
           />
           {/* <i className="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
           <i className="fa fa-file-image-o"></i> */}
-          <button onClick={(e) => leaveChat()}>Leave Chat</button>
+          <button onClick={(e) => leaveChat()}>End Chat</button>
         </div>
       </div>
     </div>

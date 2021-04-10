@@ -13,6 +13,7 @@ class SlotList extends React.Component {
     existingLive: [],
     isModalVisible: false,
     id: "",
+    points: "",
   };
   componentDidMount() {
     slotLists()
@@ -22,8 +23,12 @@ class SlotList extends React.Component {
       .catch((err) => console.log(err));
   }
 
-  showModal = (id) => {
-    this.setState({ isModalVisible: true, id: id });
+  showModal = (live) => {
+    this.setState({
+      isModalVisible: true,
+      id: live._id,
+      points: live.insiderPoints,
+    });
   };
 
   handleCancel = () => {
@@ -61,7 +66,7 @@ class SlotList extends React.Component {
                                 className="action-button"
                                 onClick={() => {
                                   if (localStorage.getItem("user") !== null)
-                                    return this.showModal(live._id);
+                                    return this.showModal(live);
                                   else return this.openNotification();
                                 }}
                               >
@@ -129,7 +134,7 @@ class SlotList extends React.Component {
               closable
               onCancel={this.handleCancel}
             >
-              <SlotForm id={this.state.id} />
+              <SlotForm id={this.state.id} points={this.state.points} />
             </Modal>
           </Row>
         ) : (
