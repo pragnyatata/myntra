@@ -53,9 +53,13 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("User left");
   });
-  socket.on("leaveRoom", async (room, callback) => {
-    io.socketsLeave(room);
-    callback();
+  socket.on("base64 file", async (msg, room) => {
+    const user = await getUserBySocketId(socket.id);
+    io.in(room).emit("message", {
+      user: user.name,
+      file: msg.file,
+      fileName: msg.fileName,
+    });
   });
 });
 

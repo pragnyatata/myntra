@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-import { Input } from "antd";
+import { Input, Button } from "antd";
 import "../css/chat.css";
 
 let socket;
@@ -10,6 +10,7 @@ const Chat = ({ location, match }) => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [imageData, setImageData] = useState(null);
   useEffect(() => {
     socket = io(ENDPOINT2);
     const userId = localStorage.getItem("user");
@@ -65,6 +66,26 @@ const Chat = ({ location, match }) => {
     );
   });
 
+  // const listItems = messages.map((number, index) => {
+  //   console.log(number);
+  //   if (number.text !== undefined) return <li key={index}>{number.text}</li>;
+  //   else return <img key={index} src={number.file}></img>;
+  // });
+  const filechange = (e) => {
+    let data = e.target.files[0];
+    setImageData(data);
+  };
+  const readThenSendFile = (data) => {
+    var reader = new FileReader();
+    reader.onload = function (evt) {
+      var msg = {};
+      msg.file = evt.target.result;
+      msg.fileName = data.name;
+      socket.emit("base64 file", msg, match.params.roomId);
+    };
+    reader.readAsDataURL(data);
+  };
+
   return (
     <div className="chat-wrapper">
       <div className="chat">
@@ -93,6 +114,17 @@ const Chat = ({ location, match }) => {
             }}
             onKeyPress={(e) => (e.key === "Enter" ? sendMessage(e) : null)}
           />
+          <Input
+            type="file"
+            onChange={(e) => {
+              filechange(e);
+            }}
+          />
+          {imageData && (
+            <Button onClick={(e) => readThenSendFile(imageData)}>
+              Upload Image
+            </Button>
+          )}
           <i className="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
           <i className="fa fa-file-image-o"></i>
           {/* <button onClick={sendMessage(e)}>Send</button> */}
