@@ -8,6 +8,7 @@ import { deleteSlot, slotLists } from "../apis";
 import CreateSlotModal from "../components/createslotmodal";
 import ModifySlotModal from "../components/modifyslotmodal";
 import img from "../assets/createslot.svg";
+import "../css/createslot.css";
 
 class CreateSlot extends React.Component {
   state = {
@@ -79,10 +80,8 @@ class CreateSlot extends React.Component {
 
   render() {
     return (
-      <div>
-        <Button type="primary" onClick={this.showModal}>
-          Create Live
-        </Button>
+      <div className="create-slot">
+        <Button onClick={this.showModal}>Create Live</Button>
         <Modal
           visible={this.state.isModalVisible}
           closable

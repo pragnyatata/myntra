@@ -1,14 +1,18 @@
 import { Card, Col, Row, notification } from "antd";
 import Meta from "antd/lib/card/Meta";
+import Modal from "antd/lib/modal/Modal";
 import moment from "moment";
 import React from "react";
 import { slotLists } from "../apis";
 import img from "../assets/slotlist.svg";
 import "../css/slotlist.css";
+import SlotForm from "../components/slotform";
 
 class SlotList extends React.Component {
   state = {
     existingLive: [],
+    isModalVisible: false,
+    id: "",
   };
   componentDidMount() {
     slotLists()
@@ -17,6 +21,14 @@ class SlotList extends React.Component {
       })
       .catch((err) => console.log(err));
   }
+
+  showModal = (id) => {
+    this.setState({ isModalVisible: true, id: id });
+  };
+
+  handleCancel = () => {
+    this.setState({ isModalVisible: false });
+  };
 
   openNotification = () => {
     notification.open({
@@ -49,9 +61,7 @@ class SlotList extends React.Component {
                                 className="action-button"
                                 onClick={() => {
                                   if (localStorage.getItem("user") !== null)
-                                    return this.props.history.push(
-                                      `/slot/${live._id}`
-                                    );
+                                    return this.showModal(live._id);
                                   else return this.openNotification();
                                 }}
                               >
@@ -114,6 +124,13 @@ class SlotList extends React.Component {
                 alt="Online Colloboration"
               />
             </Col>
+            <Modal
+              visible={this.state.isModalVisible}
+              closable
+              onCancel={this.handleCancel}
+            >
+              <SlotForm id={this.state.id} />
+            </Modal>
           </Row>
         ) : (
           <div>No live sessions scheduled. Create one.</div>

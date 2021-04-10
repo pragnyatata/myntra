@@ -1,14 +1,13 @@
 .buddy-chat {
   min-height: 90vh;
-  background: #ebebeb;
   padding: 20px;
 }
 
 .toggle-availability {
-  width: 80%;
+  width: 750px;
   margin: 10px auto;
   padding: 10px;
-  background: #fff;
+  background: #ebebeb;
   border-radius: 10px;
   text-align: right;
 }

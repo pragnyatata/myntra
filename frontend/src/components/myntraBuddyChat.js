@@ -27,6 +27,8 @@ const BuddyChatSocket = ({}) => {
         setMessages([...messages, message]);
       }
     });
+    var objDiv = document.getElementById("chat-history");
+    objDiv.scrollTop = objDiv.scrollHeight;
   }, [messages]);
 
   const sendMessage = (event) => {
@@ -41,29 +43,36 @@ const BuddyChatSocket = ({}) => {
   };
   const listItems = messages.map((number, index) => {
     let me = number.user === JSON.parse(localStorage.getItem("data")).name;
-    if (number.text !== undefined)
-      return (
-        <li key={index} className={me && "clearfix"}>
-          <div className={me ? "message-data float-right" : "message-data "}>
-            <span className="message-data-time">
-              {new Date().toLocaleTimeString()}
-            </span>{" "}
-            &nbsp; &nbsp;
-            <span className="message-data-name">
-              {number.user.toUpperCase()}
-            </span>{" "}
-            <i className={me ? "fa fa-circle me" : "fa fa-circle online"}></i>
-          </div>
-          <div
-            className={
-              !me ? " message my-message" : " message other-message float-right"
-            }
-          >
-            {number.text}
-          </div>
-        </li>
-      );
-    else return <img key={index} src={number.file}></img>;
+
+    return (
+      <li key={index} className={me && "clearfix"}>
+        <div className={me ? "message-data float-right" : "message-data "}>
+          <span className="message-data-time">
+            {new Date().toLocaleTimeString()}
+          </span>{" "}
+          &nbsp; &nbsp;
+          <span className="message-data-name">
+            {number.user.toUpperCase()}
+          </span>{" "}
+          <i className={me ? "fa fa-circle me" : "fa fa-circle online"}></i>
+        </div>
+        <div
+          className={
+            !me ? " message my-message" : " message other-message float-right"
+          }
+        >
+          {number.text !== undefined ? (
+            number.text
+          ) : (
+            <img
+              style={{ width: "inherit" }}
+              key={index}
+              src={number.file}
+            ></img>
+          )}
+        </div>
+      </li>
+    );
   });
   return (
     <div className="chat-wrapper">
@@ -93,8 +102,8 @@ const BuddyChatSocket = ({}) => {
             }}
             onKeyPress={(e) => (e.key === "Enter" ? sendMessage(e) : null)}
           />
-          <i className="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
-          <i className="fa fa-file-image-o"></i>
+          {/* <i className="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+          <i className="fa fa-file-image-o"></i> */}
           <button onClick={(e) => leaveChat()}>Leave Chat</button>
         </div>
       </div>

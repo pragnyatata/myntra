@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input, Menu } from "antd";
+import { Button, Input, Menu, notification } from "antd";
 import logo from "../assets/logo.png";
 import { Header } from "antd/lib/layout/layout";
 import { withRouter } from "react-router";
@@ -21,6 +21,14 @@ class NavBar extends React.Component {
   handleCancel = () => {
     this.setState({ isModalVisible: false });
   };
+  openNotification = () => {
+    notification.open({
+      message: "Hey there user!",
+      description: "Please login to continue.",
+      duration: 2,
+      className: "popup",
+    });
+  };
   handleClick = (e) => {
     // console.log("click ", typeof e.key);
     switch (e.key) {
@@ -36,7 +44,9 @@ class NavBar extends React.Component {
         break;
       }
       case "4": {
-        this.props.history.push("/user/chat");
+        if (localStorage.getItem("user") !== null)
+          this.props.history.push("/user/chat");
+        else this.openNotification();
         break;
       }
       case "5": {

@@ -1,8 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 
 --root {
-  --green: #86bb71;
-  --blue: #94c2ed;
+  --green: #f6847c;
+  --blue: #9e89c3;
   --orange: #e38968;
   --gray: #92959e;
 }
@@ -158,20 +158,20 @@
   width: 0;
   position: absolute;
   pointer-events: none;
-  border-bottom-color: #86bb71;
+  border-bottom-color: #f6847c;
   border-width: 10px;
   margin-left: -10px;
 }
 
 .my-message {
-  background: #86bb71;
+  background: #f6847c;
 }
 
 .other-message {
-  background: #94c2ed;
+  background: #9e89c3;
 }
 .other-message:after {
-  border-bottom-color: #94c2ed;
+  border-bottom-color: #9e89c3;
   left: 93%;
 }
 
@@ -198,7 +198,7 @@
 
 .chat-message button {
   float: right;
-  color: #94c2ed;
+  color: #9e89c3;
   font-size: 16px;
   text-transform: uppercase;
   border: none;
@@ -208,7 +208,7 @@
 }
 
 .chat-message button:hover {
-  color: darken(#94c2ed, 7%);
+  color: darken(#9e89c3, 7%);
 }
 
 .online,
@@ -219,7 +219,7 @@
 }
 
 .online {
-  color: #86bb71;
+  color: #f6847c;
 }
 
 .offline {
@@ -227,7 +227,7 @@
 }
 
 .me {
-  color: #94c2ed;
+  color: #9e89c3;
 }
 
 .align-left {

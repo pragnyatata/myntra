@@ -42,6 +42,7 @@ const Chat = ({ location, match }) => {
   const listItems = messages.map((number, index) => {
     let me = number.user === JSON.parse(localStorage.getItem("data")).name;
     // console.log(me);
+
     return (
       <li key={index} className={me && "clearfix"}>
         <div className={me ? "message-data float-right" : "message-data "}>
@@ -59,7 +60,15 @@ const Chat = ({ location, match }) => {
             !me ? " message my-message" : " message other-message float-right"
           }
         >
-          {number.text}
+          {number.text !== undefined ? (
+            number.text
+          ) : (
+            <img
+              style={{ width: "inherit" }}
+              key={index}
+              src={number.file}
+            ></img>
+          )}
         </div>
       </li>
       // <li key={index}>{number.text}</li> other-message float-right align-right clearfix
@@ -125,8 +134,6 @@ const Chat = ({ location, match }) => {
               Upload Image
             </Button>
           )}
-          <i className="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
-          <i className="fa fa-file-image-o"></i>
           {/* <button onClick={sendMessage(e)}>Send</button> */}
         </div>
       </div>

@@ -11,7 +11,7 @@ export default class UserChat extends Component {
       .then((response) => {
         console.log(response);
         if (response.id) window.location = `/chat/${response.id}`;
-        if (response.error) this.openNotification();
+        else if (response.error || !response.lenght) this.openNotification();
       })
       .catch((err) => console.log(err));
   };

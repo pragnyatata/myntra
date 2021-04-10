@@ -1,9 +1,8 @@
 import React from "react";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import Input from "antd/lib/input/Input";
-import { Button, Form } from "antd";
+import { Button, Form, notification } from "antd";
 import { slotform } from "../apis";
-import "../css/slotform.css";
 
 class SlotForm extends React.Component {
   state = {
@@ -14,17 +13,22 @@ class SlotForm extends React.Component {
     conduct: false,
   };
 
+  openNotification = (msg) => {
+    notification.open({
+      message: "Hey there user!",
+      description: msg,
+      duration: 2,
+      className: "popup",
+    });
+  };
+
   onFormChange = ({ query, email, phone, conduct }) => {
     const body = {};
     body.details = query;
     body.phoneNumber = phone;
-    slotform(
-      this.props.match.params.scheduleId,
-      localStorage.getItem("user"),
-      body
-    )
+    slotform(this.props.id, localStorage.getItem("user"), body)
       .then((response) => {
-        console.log(response);
+        this.openNotification(response.message);
       })
       .catch((err) => console.log(err));
     this.setState({
@@ -36,6 +40,12 @@ class SlotForm extends React.Component {
   };
 
   render() {
+    const tailLayout = {
+      wrapperCol: { offset: 3, span: 21 },
+    };
+    const tailLayout2 = {
+      wrapperCol: { offset: 10, span: 14 },
+    };
     return (
       <div className="slot-form">
         <Form
@@ -62,13 +72,14 @@ class SlotForm extends React.Component {
             name="conduct"
             valuePropName="checked"
             rules={[{ required: true, message: "Agree to continue" }]}
+            {...tailLayout}
           >
             <Checkbox>
               I agree to maintain code of conduct during the live session
             </Checkbox>
           </Form.Item>
-          <Form.Item>
-            <Button htmlType="submit">Button</Button>
+          <Form.Item {...tailLayout2}>
+            <Button htmlType="submit">Submit</Button>
           </Form.Item>
         </Form>
       </div>
