@@ -3,7 +3,7 @@ import Meta from "antd/lib/card/Meta";
 import Modal from "antd/lib/modal/Modal";
 import moment from "moment";
 import React from "react";
-import { slotLists } from "../apis";
+import { getUserInfo, slotLists } from "../apis";
 import img from "../assets/slotlist.svg";
 import "../css/slotlist.css";
 import SlotForm from "../components/slotform";

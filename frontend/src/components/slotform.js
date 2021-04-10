@@ -2,8 +2,7 @@ import React from "react";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import Input from "antd/lib/input/Input";
 import { Button, Form, notification } from "antd";
-import { slotform } from "../apis";
-
+import { getUserInfo, slotform } from "../apis";
 class SlotForm extends React.Component {
   state = {
     query: "",
@@ -11,8 +10,16 @@ class SlotForm extends React.Component {
     phone: "",
     points: "",
     conduct: false,
+    userPoints: null,
   };
-
+  componentDidMount() {
+    let id = localStorage.getItem("user");
+    getUserInfo(id)
+      .then((response) => {
+        this.setState({ userPoints: response.insiderPoints });
+      })
+      .catch((err) => console.log(err));
+  }
   openNotification = (msg) => {
     notification.open({
       message: "Hey there user!",
@@ -28,7 +35,12 @@ class SlotForm extends React.Component {
     body.phoneNumber = phone;
     slotform(this.props.id, localStorage.getItem("user"), body)
       .then((response) => {
-        this.openNotification(response.message);
+        if (response.message !== undefined)
+          this.openNotification(response.message);
+        else this.openNotification("Your slot has been booked successfully");
+        setTimeout(() => {
+          window.location = "/slot";
+        }, 3000);
       })
       .catch((err) => console.log(err));
     this.setState({
@@ -38,15 +50,15 @@ class SlotForm extends React.Component {
       conduct,
     });
   };
-
   render() {
+    const { userPoints } = this.state;
     const tailLayout = {
       wrapperCol: { offset: 3, span: 21 },
     };
     const tailLayout2 = {
       wrapperCol: { offset: 10, span: 14 },
     };
-    const userPoints = JSON.parse(localStorage.getItem("data")).insiderPoints;
+
     const reqPoints = this.props.points;
     return (
       <div className="slot-form">

@@ -113,6 +113,21 @@ export const login = (email) => {
     })
     .catch((err) => console.log(err));
 };
+export const getUserInfo = (id) => {
+  return fetch(`${apiUrl}/user/userinfo/${id}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => console.log(err));
+};
+
 export const buddyPush = (id) => {
   return fetch(`${apiUrl}/user/buddyQueue/${id}`, {
     method: "GET",
