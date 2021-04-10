@@ -21,7 +21,6 @@ class CreateSlot extends React.Component {
   componentDidMount() {
     slotLists()
       .then((response) => {
-        // console.log(response);
         let vis = this.state.visible;
         response.map((i) => vis.push(false));
         this.setState({ existingLive: response, visible: vis });
@@ -54,7 +53,6 @@ class CreateSlot extends React.Component {
   deleteLive = (id, i) => {
     deleteSlot(id)
       .then((response) => {
-        // console.log(response);
         let old = [...this.state.existingLive];
         let newList = old.filter((i) => i._id !== id);
         this.setState({ existingLive: newList });
@@ -70,7 +68,6 @@ class CreateSlot extends React.Component {
   };
 
   modifyList = (obj) => {
-    // console.log(obj);
     let list = this.state.existingLive.filter((liv) => liv._id !== obj._id);
     list.push(obj);
     this.setState({ existingLive: list });

@@ -5,7 +5,6 @@ import { createSlot } from "../apis";
 
 class CreateSlotModal extends React.Component {
   onFormChange = (values) => {
-    console.log(values);
     createSlot(values)
       .then((response) => {
         this.props.updateList(response);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-import { Button, Input } from "antd";
+import { Input } from "antd";
+import { buddyPush } from "../apis";
 
 let socket;
 const ENDPOINT = "https://myntraweforshe.herokuapp.com/";
@@ -12,7 +13,6 @@ const BuddyChatSocket = ({}) => {
   const [messages, setMessages] = useState([]);
   useEffect(() => {
     socket = io(ENDPOINT);
-
     const userId = localStorage.getItem("user");
     setRoom(userId);
     setName(userId);
@@ -39,6 +39,10 @@ const BuddyChatSocket = ({}) => {
   };
   const leaveChat = () => {
     socket.emit("sendMessage", "Chat Ended", () => setMessage(""));
+    buddyPush(localStorage.getItem("user"))
+      .then((response) => {})
+      .catch((err) => console.log(err));
+
     setMessages([]);
   };
   const listItems = messages.map((number, index) => {

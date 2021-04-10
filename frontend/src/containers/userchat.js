@@ -6,10 +6,8 @@ import img from "../assets/chat.svg";
 
 export default class UserChat extends Component {
   onChatClick = () => {
-    console.log("I was hit");
     buddyCount()
       .then((response) => {
-        console.log(response);
         if (response.id) window.location = `/chat/${response.id}`;
         else if (response.error || !response.lenght) this.openNotification();
       })

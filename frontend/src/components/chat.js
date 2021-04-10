@@ -14,7 +14,6 @@ const Chat = ({ location, match }) => {
   useEffect(() => {
     socket = io(ENDPOINT);
     const userId = localStorage.getItem("user");
-    console.log(match.params.roomId);
     let room = match.params.roomId;
     setName(userId);
 
@@ -22,9 +21,7 @@ const Chat = ({ location, match }) => {
   }, [ENDPOINT, location.search]);
   useEffect(() => {
     socket.on("message", (message) => {
-      console.log(message);
       if (message.text === "Chat Ended") {
-        console.log(message);
         setMessages([]);
         window.location = "/user/chat";
       } else setMessages([...messages, message]);
@@ -41,7 +38,6 @@ const Chat = ({ location, match }) => {
   };
   const listItems = messages.map((number, index) => {
     let me = number.user === JSON.parse(localStorage.getItem("data")).name;
-    // console.log(me);
 
     return (
       <li key={index} className={me && "clearfix"}>
@@ -75,11 +71,6 @@ const Chat = ({ location, match }) => {
     );
   });
 
-  // const listItems = messages.map((number, index) => {
-  //   console.log(number);
-  //   if (number.text !== undefined) return <li key={index}>{number.text}</li>;
-  //   else return <img key={index} src={number.file}></img>;
-  // });
   const filechange = (e) => {
     let data = e.target.files[0];
     setImageData(data);

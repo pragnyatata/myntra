@@ -34,9 +34,14 @@ io.on("connection", (socket) => {
     if (error || user === null) return callback(error);
     socket.join(room);
     console.log(`${user.name} joined`);
+    let message;
+    if (user.role === "buddy")
+      message = `Hello ${user.name}. A customer will be allocated soon.`;
+    else
+      message = `Hello ${user.name}. Welcome to Myntra. A buddy will be allocated soon to help you out with your queries`;
     socket.emit("message", {
       user: "admin",
-      text: `${user.name}, welcome to room ${room}.`,
+      text: message,
     });
     socket.broadcast
       .to(room)

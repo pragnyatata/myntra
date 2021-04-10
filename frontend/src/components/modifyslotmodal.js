@@ -6,7 +6,6 @@ import { modifySlot } from "../apis";
 
 class ModifySlotModal extends React.Component {
   onFormChange = (values) => {
-    // console.log(values);
     modifySlot(values, this.props.live[0]._id)
       .then((response) => {
         this.props.updateList(response);

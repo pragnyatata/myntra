@@ -30,7 +30,6 @@ class NavBar extends React.Component {
     });
   };
   handleClick = (e) => {
-    // console.log("click ", typeof e.key);
     switch (e.key) {
       case "1":
       case "2":
@@ -58,13 +57,15 @@ class NavBar extends React.Component {
         window.location = "/";
         break;
       }
+      case "7": {
+        window.location = "/slot/create";
+        break;
+      }
     }
   };
   handleSubmit = ({ email }) => {
-    console.log(this.state.email);
     login(email)
       .then((response) => {
-        console.log(response.user);
         if (response.user !== undefined) {
           if (response.user.role === "user") {
             window.location = "/";
@@ -94,6 +95,7 @@ class NavBar extends React.Component {
           <Menu.Item key={2}>THEME STORES</Menu.Item>
           <Menu.Item key={3}>LIVE</Menu.Item>
           <Menu.Item key={4}>CONNECT WITH BUDDY</Menu.Item>
+          <Menu.Item key={7}>CREATE LIVE</Menu.Item>
           {localStorage.getItem("user") && (
             <Menu.Item key={6}>LOGOUT</Menu.Item>
           )}
