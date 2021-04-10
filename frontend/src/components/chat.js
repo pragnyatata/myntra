@@ -40,7 +40,7 @@ const Chat = ({ location, match }) => {
   };
   const listItems = messages.map((number, index) => {
     let me = number.user === JSON.parse(localStorage.getItem("data")).name;
-    console.log(me);
+    // console.log(me);
     return (
       <li key={index} className={me && "clearfix"}>
         <div className={me ? "message-data float-right" : "message-data "}>

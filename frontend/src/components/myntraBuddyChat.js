@@ -39,22 +39,64 @@ const BuddyChatSocket = ({}) => {
     socket.emit("sendMessage", "Chat Ended", () => setMessage(""));
     setMessages([]);
   };
-  const listItems = messages.map((number, index) => (
-    <li key={index}>{number.text}</li>
-  ));
+  const listItems = messages.map((number, index) => {
+    let me = number.user === JSON.parse(localStorage.getItem("data")).name;
+    return (
+      <li key={index} className={me && "clearfix"}>
+        <div className={me ? "message-data float-right" : "message-data "}>
+          <span className="message-data-time">
+            {new Date().toLocaleTimeString()}
+          </span>{" "}
+          &nbsp; &nbsp;
+          <span className="message-data-name">
+            {number.user.toUpperCase()}
+          </span>{" "}
+          <i className={me ? "fa fa-circle me" : "fa fa-circle online"}></i>
+        </div>
+        <div
+          className={
+            !me ? " message my-message" : " message other-message float-right"
+          }
+        >
+          {number.text}
+        </div>
+      </li>
+    );
+  });
   return (
-    <React.Fragment>
-      <div>Chat</div>
-      <Input
-        value={message}
-        onChange={(e) => {
-          setMessage(e.target.value);
-        }}
-        onKeyPress={(e) => (e.key === "Enter" ? sendMessage(e) : null)}
-      />
-      <div>{listItems}</div>
-      <Button onClick={(e) => leaveChat()}>Leave Chat</Button>
-    </React.Fragment>
+    <div className="chat-wrapper">
+      <div className="chat">
+        <div className="chat-header clearfix">
+          {/* <img
+            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg"
+            alt="avatar"
+          /> */}
+
+          <div className="chat-about">
+            <div className="chat-with">Chat with Myntra Buddy</div>
+            <div className="chat-num-messages">available now</div>
+          </div>
+          <i className="fa fa-star"></i>
+        </div>
+        <div className="chat-history" id="chat-history">
+          <ul>{listItems}</ul>
+        </div>
+        <div className="chat-message clearfix">
+          {/* <textarea name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea> */}
+          <Input
+            placeholder="Type your message"
+            value={message}
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
+            onKeyPress={(e) => (e.key === "Enter" ? sendMessage(e) : null)}
+          />
+          <i className="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+          <i className="fa fa-file-image-o"></i>
+          <button onClick={(e) => leaveChat()}>Leave Chat</button>
+        </div>
+      </div>
+    </div>
   );
 };
 

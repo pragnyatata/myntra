@@ -29,8 +29,8 @@ class BuddyChat extends React.Component {
             <span>You are presently offline </span>
           )}
           <Switch checked={this.state.available} onChange={this.onChange} />
-          {this.state.available && <BuddyChatSocket />}
         </div>
+        {this.state.available && <BuddyChatSocket />}
       </div>
     );
   }
