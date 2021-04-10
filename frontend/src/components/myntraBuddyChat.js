@@ -11,7 +11,7 @@ const BuddyChatSocket = ({}) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   useEffect(() => {
-    socket = io(ENDPOINT2);
+    socket = io(ENDPOINT);
 
     const userId = localStorage.getItem("user");
     setRoom(userId);

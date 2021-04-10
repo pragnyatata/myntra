@@ -12,7 +12,7 @@ const Chat = ({ location, match }) => {
   const [messages, setMessages] = useState([]);
   const [imageData, setImageData] = useState(null);
   useEffect(() => {
-    socket = io(ENDPOINT2);
+    socket = io(ENDPOINT);
     const userId = localStorage.getItem("user");
     console.log(match.params.roomId);
     let room = match.params.roomId;
