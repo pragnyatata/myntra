@@ -3,9 +3,9 @@ import React from "react";
 class LiveStream extends React.Component {
   render() {
     return (
-      <div>
+      <div style={{ display: "flex" }}>
         <iframe
-          width="944"
+          width="70%"
           height="531"
           src={`https://www.youtube.com/embed/${this.props.match.params.url}`}
           title="YouTube video player"
@@ -15,7 +15,7 @@ class LiveStream extends React.Component {
         ></iframe>
         <iframe
           src={`https://www.youtube.com/live_chat?v=${this.props.match.params.url}&embed_domain=${window.location.hostname}`}
-          width="100%"
+          width="30%"
           height="600"
           title="Live chat"
         ></iframe>
