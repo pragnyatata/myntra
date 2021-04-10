@@ -62,7 +62,7 @@ class NavBar extends React.Component {
             window.location = "/buddy/chat";
           }
           localStorage.setItem("user", response.user._id);
-          localStorage.setItem("role", response.user.role);
+          localStorage.setItem("data", JSON.stringify(response.user));
         } else {
           this.setState({ error: "User not found" });
         }

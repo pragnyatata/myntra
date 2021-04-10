@@ -1,0 +1,28 @@
+.user-chat {
+  background-color: #ffadad;
+  display: flex;
+  align-items: center;
+  min-height: 650px;
+  -webkit-clip-path: ellipse(100% 55% at 48% 44%);
+  clip-path: ellipse(100% 55% at 48% 44%);
+}
+
+.content-wrapper {
+  width: 80%;
+  margin: 0 auto;
+  color: #480033;
+  font-size: x-large;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-wrapper .ant-btn {
+  width: 50%;
+  margin: 40px auto;
+  background: #480033;
+  color: white;
+  /* font-weight: 700; */
+  font-size: 25px;
+  height: 64px;
+}
