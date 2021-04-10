@@ -39,9 +39,11 @@ const BuddyChatSocket = ({}) => {
     socket.emit("sendMessage", "Chat Ended", () => setMessage(""));
     setMessages([]);
   };
-  const listItems = messages.map((number, index) => (
-    <li key={index}>{number.text}</li>
-  ));
+  const listItems = messages.map((number, index) => {
+    console.log(number);
+    if (number.text !== undefined) return <li key={index}>{number.text}</li>;
+    else return <img key={index} src={number.file}></img>;
+  });
   return (
     <React.Fragment>
       <div>Chat</div>

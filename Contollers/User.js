@@ -129,6 +129,7 @@ exports.buddyCount = async (req, res) => {
     const buddies = await Buddy.find().populate("queue.user");
     let myBuddy = buddies[0];
     length = myBuddy.queue.length;
+    if (length === 0) return res.status(200).json({ length });
     let id = myBuddy.queue.shift()._id.toString();
     console.log(id);
     await myBuddy.save();

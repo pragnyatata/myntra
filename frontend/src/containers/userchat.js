@@ -20,8 +20,15 @@ export default class UserChat extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.onChatClick}>Chat with us!</Button>
-        <div>{this.state.error}</div>
+        {localStorage.getItem("user") &&
+        localStorage.getItem("role") === "user" ? (
+          <div>
+            <Button onClick={this.onChatClick}>Chat with us!</Button>
+            <div>{this.state.error}</div>
+          </div>
+        ) : (
+          <div>Please login first</div>
+        )}
       </div>
     );
   }
