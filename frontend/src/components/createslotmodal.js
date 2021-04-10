@@ -93,6 +93,19 @@ class CreateSlotModal extends React.Component {
         >
           <Input />
         </Form.Item>
+        <Form.Item
+          label="Restream URL to join Live"
+          name="restreamUrl"
+          rules={[
+            {
+              required: true,
+              message: "Please input url of live session (joining)!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
         <Form.Item>
           <Button htmlType="submit">Submit</Button>
         </Form.Item>

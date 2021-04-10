@@ -39,6 +39,7 @@ class ModifySlotModal extends React.Component {
           points: liv.insiderPoints,
           slots: liv.slots,
           url: liv.url,
+          restreamUrl: liv.restreamUrl,
         }}
       >
         <Form.Item
@@ -101,6 +102,18 @@ class ModifySlotModal extends React.Component {
           name="url"
           rules={[
             { required: true, message: "Please input url of live session!" },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Restream URL to join Live"
+          name="restreamUrl"
+          rules={[
+            {
+              required: true,
+              message: "Please input url of live session (joining)!",
+            },
           ]}
         >
           <Input />

@@ -179,6 +179,10 @@ class CreateSlot extends React.Component {
                           className="end"
                           description={`Youtube URL: ${live.url}`}
                         />
+                        <Meta
+                          className="end"
+                          description={`Restream URL: ${live.restreamUrl}`}
+                        />
                       </Card>
                     </Col>
                   ))}

@@ -9,6 +9,7 @@ exports.create = async (req, res) => {
       slots,
       insiderPoints,
       url,
+      restreamUrl,
       influencerName,
     } = req.body;
     const newSchedule = Schedule({
@@ -19,6 +20,7 @@ exports.create = async (req, res) => {
       slots,
       insiderPoints,
       url,
+      restreamUrl,
       influencerName,
     });
     const schedule = await newSchedule.save();
@@ -48,6 +50,7 @@ exports.update = async (req, res) => {
       slots,
       insiderPoints,
       url,
+      restreamUrl,
       influencerName,
     } = req.body;
     schedule.date = date;
@@ -58,6 +61,7 @@ exports.update = async (req, res) => {
     schedule.insiderPoints = insiderPoints;
     schedule.url = url;
     schedule.influencerName = influencerName;
+    schedule.restreamUrl = restreamUrl;
     schedule = await schedule.save();
     return res.status(200).json(schedule);
   } catch (err) {

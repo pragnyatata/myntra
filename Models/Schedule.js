@@ -30,6 +30,9 @@ const ScheduleSchema = new mongoose.Schema({
   url: {
     type: String,
   },
+  restreamUrl: {
+    type: String,
+  },
   userSlots: [
     {
       user: {

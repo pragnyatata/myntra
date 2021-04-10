@@ -33,6 +33,7 @@ export const createSlot = (values) => {
       insiderPoints: values.points,
       url: values.url,
       influencerName: values.name,
+      restreamUrl: values.restreamUrl,
     }),
   })
     .then((response) => response.json())
@@ -57,6 +58,7 @@ export const modifySlot = (values, id) => {
       insiderPoints: values.points,
       url: values.url,
       influencerName: values.name,
+      restreamUrl: values.restreamUrl,
     }),
   })
     .then((response) => response.json())
