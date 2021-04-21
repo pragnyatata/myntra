@@ -10,16 +10,23 @@ import Form from "antd/lib/form/Form";
 
 class NavBar extends React.Component {
   state = {
-    isModalVisible: false,
+    isLoginModalVisible: false,
+    isRegisterModalVisible: false,
     email: "",
+    regEmail: "",
+    name: "",
     error: null,
   };
-  showModal = () => {
-    this.setState({ isModalVisible: true });
+  showModal = (name) => {
+    this.setState({ [name]: true });
   };
 
-  handleCancel = () => {
-    this.setState({ isModalVisible: false });
+  handleCancelLogin = () => {
+    this.setState({ isLoginModalVisible: false });
+  };
+
+  handleCancelRegister = () => {
+    this.setState({ isRegisterModalVisible: false });
   };
   openNotification = () => {
     notification.open({
@@ -49,7 +56,7 @@ class NavBar extends React.Component {
         break;
       }
       case "5": {
-        this.showModal();
+        this.showModal("isLoginModalVisible");
         break;
       }
       case "6": {
@@ -59,6 +66,10 @@ class NavBar extends React.Component {
       }
       case "7": {
         window.location = "/slot/create";
+        break;
+      }
+      case "8": {
+        this.showModal("isRegisterModalVisible");
         break;
       }
     }
@@ -80,6 +91,10 @@ class NavBar extends React.Component {
       })
       .catch((err) => console.log(err));
   };
+
+  handleRegisterSubmit = ({ regEmail, name }) => {
+    console.log(regEmail, name);
+  };
   render() {
     return (
       <Header className="home-header">
@@ -100,12 +115,15 @@ class NavBar extends React.Component {
             <Menu.Item key={6}>LOGOUT</Menu.Item>
           )}
           {!localStorage.getItem("user") && (
-            <Menu.Item key={5}>LOGIN</Menu.Item>
+            <React.Fragment>
+              <Menu.Item key={8}>REGISTER</Menu.Item>
+              <Menu.Item key={5}>LOGIN</Menu.Item>
+            </React.Fragment>
           )}
           <Modal
-            visible={this.state.isModalVisible}
+            visible={this.state.isLoginModalVisible}
             closable
-            onCancel={this.handleCancel}
+            onCancel={this.handleCancelLogin}
             className="login-modal"
           >
             <h3>SIGN IN</h3>
@@ -120,6 +138,43 @@ class NavBar extends React.Component {
                 ]}
               >
                 <Input placeholder="superstaruser@myntra.com" />
+              </Form.Item>
+              <Button htmlType="submit">Submit</Button>
+            </Form>
+            <div className="err">{this.state.error}</div>
+          </Modal>
+          <Modal
+            visible={this.state.isRegisterModalVisible}
+            closable
+            onCancel={this.handleCancelRegister}
+            className="login-modal"
+          >
+            <h3>Register</h3>
+            <Form layout="horizontal" onFinish={this.handleRegisterSubmit}>
+              <Form.Item
+                name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your name!",
+                  },
+                ]}
+              >
+                <Input placeholder="Fav User Singh" />
+              </Form.Item>
+              <Form.Item
+                name="regEmail"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your Email address!",
+                  },
+                ]}
+              >
+                <Input
+                  style={{ marginTop: 0 }}
+                  placeholder="superstaruser@myntra.com"
+                />
               </Form.Item>
               <Button htmlType="submit">Submit</Button>
             </Form>
