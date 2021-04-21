@@ -4,7 +4,7 @@ import logo from "../assets/logo.png";
 import { Header } from "antd/lib/layout/layout";
 import { withRouter } from "react-router";
 import Modal from "antd/lib/modal/Modal";
-import { login } from "../apis";
+import { login, register } from "../apis";
 import "../css/navbar.css";
 import Form from "antd/lib/form/Form";
 
@@ -93,7 +93,16 @@ class NavBar extends React.Component {
   };
 
   handleRegisterSubmit = ({ regEmail, name, role }) => {
-    console.log(regEmail, name, role);
+    register(regEmail, name, role)
+      .then((response) => {
+        console.log(response);
+        if (response.msg !== undefined) {
+          this.handleSubmit({ email: regEmail });
+        } else {
+          this.setState({ error: response.error });
+        }
+      })
+      .catch((err) => console.log(err));
   };
   render() {
     return (
