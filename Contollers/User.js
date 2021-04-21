@@ -18,9 +18,14 @@ exports.login = async (req, res) => {
 exports.create = async (req, res) => {
   const { name, email, insiderPoints, role } = req.body;
   try {
+    const user = await User.findOne({ email: email });
+    if (user !== null)
+      return res
+        .status(500)
+        .json({ error: "User with same email already exists" });
     const newUser = User({ name, email, insiderPoints, role });
-    const user = await newUser.save();
-    return res.status(200).json(user);
+    await newUser.save();
+    return res.status(200).json({ msg: "User Created" });
   } catch (err) {
     console.log(err.message);
     if (err) return res.status(500).json({ error: "Something went wrong" });
