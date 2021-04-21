@@ -18,7 +18,7 @@ exports.sendEmail = async (emailId, link) => {
     to: emailId,
     from: "myntralive@gmail.com",
     subject: "Live",
-    text: `<h3>${link}</h3>`,
+    html: content,
   };
   await transporter
     .sendMail(mailOptions)

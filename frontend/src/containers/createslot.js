@@ -26,6 +26,14 @@ class CreateSlot extends React.Component {
     slotLists()
       .then((response) => {
         let vis = this.state.visible;
+
+        let newDate = new Date();
+        newDate.setHours(0, 0, 0, 1);
+        response = response.filter((ele) => {
+          let nowDate = new Date(ele.date);
+          console.log(nowDate, newDate, nowDate >= newDate);
+          return nowDate >= newDate;
+        });
         response.map((i) => vis.push(false));
         this.setState({ existingLive: response, visible: vis });
       })

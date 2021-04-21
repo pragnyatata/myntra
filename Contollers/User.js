@@ -2,6 +2,7 @@ const Schedule = require("../Models/Schedule");
 const User = require("../Models/User");
 const Buddy = require("../Models/MyntraBuddy");
 const { sendEmail } = require("../Middleware/Mailer");
+const moment = require("moment");
 exports.login = async (req, res) => {
   const { email } = req.body;
   try {
@@ -90,7 +91,17 @@ exports.bookSlot = async (req, res) => {
       user.insiderPoints -= schedule.insiderPoints;
       user.phoneNumber = req.body.phoneNumber;
       const finalResponse = await user.save();
-      const resp = await sendEmail(user.email, schedule.restreamUrl);
+      content = `<h2>Thank You For Booking Slot with ${
+        schedule.influencerName
+      }</h2>
+      <p> Join the Live at ${moment(schedule.beginTime).format(
+        "HH:mm"
+      )} on ${moment(schedule.date).format(
+        "DD/MM/YY"
+      )}. Moderator will add you to the stream</p>
+      <p>Join <a href=${schedule.restreamUrl}>Here</a></p>
+      `;
+      const resp = await sendEmail(user.email, content);
       updatingNetwork = false;
       return res.status(200).json(saved);
     } else {
