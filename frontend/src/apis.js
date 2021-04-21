@@ -1,3 +1,5 @@
+import { response } from "express";
+
 const apiUrl = "/api";
 export const slotform = (scheduleId, userId, body) => {
   return fetch(`${apiUrl}/user/slotbook/${scheduleId}/${userId}`, {
@@ -144,6 +146,21 @@ export const buddyPush = (id) => {
 };
 export const buddyCount = (id) => {
   return fetch(`${apiUrl}/user/buddyCount`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getLiveInfo = (id) => {
+  return fetch(`${apiUrl}/schedule/slotsInfo/${id}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
