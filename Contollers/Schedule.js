@@ -1,3 +1,4 @@
+const { sendEmailInfluencer, sendEmail } = require("../Middleware/Mailer");
 const Schedule = require("../Models/Schedule");
 exports.create = async (req, res) => {
   try {
@@ -82,7 +83,25 @@ exports.deleteSchedule = async (req, res) => {
 exports.slotsInfo = async (req, res) => {
   try {
     let schedule = await Schedule.findById(req.params.id);
+    await schedule.populate("userSlots.user").execPopulate();
+    console.log(schedule.userSlots);
     return res.status(200).json(schedule.userSlots);
+  } catch (err) {
+    console.log(err.message);
+    if (err) return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+exports.mailToInfluencer = async (req, res) => {
+  try {
+    let schedule = await Schedule.findById(req.params.id);
+    await schedule.populate("userSlots.user").execPopulate();
+    let content = "";
+    schedule.userSlots.forEach((ele) => {
+      content += `<div>User is ${ele.user.name}</div>`;
+      content += `<div>Query is ${ele.details}</div>`;
+    });
+    let resp = await sendEmailInfluencer(schedule.influencerEmail, content);
+    return res.status(200).json({ msg: "Mail sent" });
   } catch (err) {
     console.log(err.message);
     if (err) return res.status(500).json({ error: "Something went wrong" });
