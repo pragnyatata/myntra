@@ -1,5 +1,3 @@
-import { response } from "express";
-
 const apiUrl = "/api";
 export const slotform = (scheduleId, userId, body) => {
   return fetch(`${apiUrl}/user/slotbook/${scheduleId}/${userId}`, {

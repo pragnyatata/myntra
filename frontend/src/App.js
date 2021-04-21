@@ -23,11 +23,11 @@ class App extends React.Component {
           <Route exact path="/slot/create" component={CreateSlot} />
           <Route exact path="/chat/:roomId" component={Chat} />
           <Route exact path="/user/chat" component={UserChat} />
-          {/* <Route
+          <Route
             exact
             path="/live/details/:scheduleId"
             component={LiveDetails}
-          /> */}
+          />
           <Route exact path="/live/:url" component={LiveStream} />
           <Route exact path="/buddy/chat" component={BuddyChat} />
         </Switch>

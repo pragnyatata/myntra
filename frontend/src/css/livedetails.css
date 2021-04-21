@@ -1,0 +1,27 @@
+.live-details {
+  margin: 20px auto;
+  width: 80%;
+}
+
+.live-details h2 {
+  text-align: center;
+}
+
+.live-details .ant-collapse {
+  width: 80%;
+  margin: 20px auto;
+}
+
+.live-details .ant-btn {
+  width: 30%;
+  background: #000;
+}
+
+.live-details .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  padding: 12px;
+  background: linear-gradient(to bottom right, #ff912f, #f667ca, #ff912f);
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+}
