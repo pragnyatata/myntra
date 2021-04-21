@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input, Menu, notification } from "antd";
+import { Button, Input, Menu, notification, Radio } from "antd";
 import logo from "../assets/logo.png";
 import { Header } from "antd/lib/layout/layout";
 import { withRouter } from "react-router";
@@ -92,8 +92,8 @@ class NavBar extends React.Component {
       .catch((err) => console.log(err));
   };
 
-  handleRegisterSubmit = ({ regEmail, name }) => {
-    console.log(regEmail, name);
+  handleRegisterSubmit = ({ regEmail, name, role }) => {
+    console.log(regEmail, name, role);
   };
   render() {
     return (
@@ -175,6 +175,22 @@ class NavBar extends React.Component {
                   style={{ marginTop: 0 }}
                   placeholder="superstaruser@myntra.com"
                 />
+              </Form.Item>
+              <Form.Item
+                name="role"
+                label="Role"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please select a role!",
+                  },
+                ]}
+              >
+                <Radio.Group>
+                  <Radio value="user">Customer</Radio>
+                  <Radio value="buddy">Buddy</Radio>
+                  <Radio value="moderator">Moderator</Radio>
+                </Radio.Group>
               </Form.Item>
               <Button htmlType="submit">Submit</Button>
             </Form>

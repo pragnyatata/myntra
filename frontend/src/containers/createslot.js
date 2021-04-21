@@ -1,4 +1,8 @@
-import { CloseOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  CloseOutlined,
+  EditOutlined,
+  SwitcherOutlined,
+} from "@ant-design/icons";
 import { Button, Card, Col, Popover, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
 import Modal from "antd/lib/modal/Modal";
@@ -109,39 +113,56 @@ class CreateSlot extends React.Component {
                         style={{ width: 250 }}
                         className="slot-card"
                         actions={[
-                          <EditOutlined
-                            key="edit"
-                            onClick={() => this.modalShow(live._id)}
-                            className="action-button"
-                          />,
-                          <Popover
-                            content={
-                              <div>
-                                <p>
-                                  Are you sure you want to delete the scheduled
-                                  live?
-                                </p>
-                                <Button
-                                  type="primary"
-                                  onClick={() => {
-                                    this.deleteLive(live._id, i);
-                                  }}
-                                >
-                                  Yes
-                                </Button>
-                                <Button onClick={() => this.hide(i)}>No</Button>
-                              </div>
-                            }
-                            trigger="click"
-                            visible={this.state.visible[i]}
-                            onVisibleChange={(visible) =>
-                              this.handleVisibleChange(visible, i)
-                            }
-                          >
-                            <CloseOutlined
-                              key="delete"
+                          <Popover content={<div>More information</div>}>
+                            <SwitcherOutlined
+                              key="more info"
+                              className="action-button"
+                              onClick={() =>
+                                this.props.history.push(
+                                  `/live/details/${live._id}`
+                                )
+                              }
+                            />
+                          </Popover>,
+                          <Popover content={<div>Edit</div>}>
+                            <EditOutlined
+                              key="edit"
+                              onClick={() => this.modalShow(live._id)}
                               className="action-button"
                             />
+                          </Popover>,
+                          <Popover content={<div>Delete</div>}>
+                            <Popover
+                              content={
+                                <div>
+                                  <p>
+                                    Are you sure you want to delete the
+                                    scheduled live?
+                                  </p>
+                                  <Button
+                                    type="primary"
+                                    onClick={() => {
+                                      this.deleteLive(live._id, i);
+                                    }}
+                                  >
+                                    Yes
+                                  </Button>
+                                  <Button onClick={() => this.hide(i)}>
+                                    No
+                                  </Button>
+                                </div>
+                              }
+                              trigger="click"
+                              visible={this.state.visible[i]}
+                              onVisibleChange={(visible) =>
+                                this.handleVisibleChange(visible, i)
+                              }
+                            >
+                              <CloseOutlined
+                                key="delete"
+                                className="action-button"
+                              />
+                            </Popover>
                           </Popover>,
                         ]}
                       >
