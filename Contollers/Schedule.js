@@ -79,3 +79,12 @@ exports.deleteSchedule = async (req, res) => {
     if (err) return res.status(500).json({ error: "Something went wrong" });
   }
 };
+exports.slotsInfo = async (req, res) => {
+  try {
+    let schedule = await Schedule.findById(req.params.id);
+    return res.status(200).json(schedule.userSlots);
+  } catch (err) {
+    console.log(err.message);
+    if (err) return res.status(500).json({ error: "Something went wrong" });
+  }
+};

@@ -1,6 +1,7 @@
 const Schedule = require("../Models/Schedule");
 const User = require("../Models/User");
 const Buddy = require("../Models/MyntraBuddy");
+const { sendEmail } = require("../Middleware/Mailer");
 exports.login = async (req, res) => {
   const { email } = req.body;
   try {
@@ -15,9 +16,9 @@ exports.login = async (req, res) => {
   }
 };
 exports.create = async (req, res) => {
-  const { name, email, insiderPoints } = req.body;
+  const { name, email, insiderPoints, role } = req.body;
   try {
-    const newUser = User({ name, email, insiderPoints });
+    const newUser = User({ name, email, insiderPoints, role });
     const user = await newUser.save();
     return res.status(200).json(user);
   } catch (err) {
@@ -78,13 +79,13 @@ exports.bookSlot = async (req, res) => {
       const slotDetails = {
         user: user,
         details: req.body.details,
-        phoneNumber: req.body.phoneNumber,
       };
       schedule.userSlots.push(slotDetails);
-
       const saved = await schedule.save();
       user.insiderPoints -= schedule.insiderPoints;
+      user.phoneNumber = req.body.phoneNumber;
       const finalResponse = await user.save();
+      const resp = await sendEmail(user.email, schedule.restreamUrl);
       updatingNetwork = false;
       return res.status(200).json(saved);
     } else {
@@ -138,4 +139,8 @@ exports.buddyCount = async (req, res) => {
     console.log(err.message);
     if (err) return res.status(500).json({ error: "Something went wrong" });
   }
+};
+exports.mailToInfluencer = async (req, res) => {
+  try {
+  } catch (err) {}
 };

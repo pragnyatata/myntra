@@ -42,9 +42,6 @@ const ScheduleSchema = new mongoose.Schema({
       details: {
         type: String,
       },
-      phoneNumber: {
-        type: Number,
-      },
     },
   ],
 });

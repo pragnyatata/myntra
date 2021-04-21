@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
   },
   insiderPoints: {
     type: Number,
-    default: 0,
+    default: 1000,
   },
   socketId: {
     type: String,
@@ -22,6 +22,9 @@ const UserSchema = new mongoose.Schema({
   role: {
     type: String,
     default: "user",
+  },
+  phoneNumber: {
+    type: Number,
   },
 });
 module.exports = User = mongoose.model("User", UserSchema);
