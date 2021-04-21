@@ -145,7 +145,3 @@ exports.buddyCount = async (req, res) => {
     if (err) return res.status(500).json({ error: "Something went wrong" });
   }
 };
-exports.mailToInfluencer = async (req, res) => {
-  try {
-  } catch (err) {}
-};
