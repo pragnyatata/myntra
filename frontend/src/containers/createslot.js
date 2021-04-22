@@ -31,7 +31,6 @@ class CreateSlot extends React.Component {
         newDate.setHours(0, 0, 0, 1);
         response = response.filter((ele) => {
           let nowDate = new Date(ele.date);
-          console.log(nowDate, newDate, nowDate >= newDate);
           return nowDate >= newDate;
         });
         response.map((i) => vis.push(false));
@@ -44,7 +43,7 @@ class CreateSlot extends React.Component {
   };
 
   handleCancelModify = () => {
-    this.setState({ isModalModifyVisible: false });
+    this.setState({ isModalModifyVisible: false, modifyId: "" });
   };
   showModal = () => {
     this.setState({ isModalVisible: true });
@@ -81,7 +80,9 @@ class CreateSlot extends React.Component {
 
   modifyList = (obj) => {
     let list = this.state.existingLive.filter((liv) => liv._id !== obj._id);
+
     list.push(obj);
+    console.log(list);
     this.setState({ existingLive: list });
     this.handleCancelModify();
     this.handleCancel();

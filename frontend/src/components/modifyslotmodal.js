@@ -23,6 +23,7 @@ class ModifySlotModal extends React.Component {
         },
       ],
     };
+    console.log(moment(liv.beginTime, "HH:mm:ss"));
     return (
       <Form
         name="basic"

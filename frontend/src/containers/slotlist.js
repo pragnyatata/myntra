@@ -18,6 +18,13 @@ class SlotList extends React.Component {
   componentDidMount() {
     slotLists()
       .then((response) => {
+        let newDate = new Date();
+        newDate.setHours(0, 0, 0, 1);
+        response = response.filter((ele) => {
+          let nowDate = new Date(ele.date);
+
+          return nowDate >= newDate;
+        });
         this.setState({ existingLive: response });
       })
       .catch((err) => console.log(err));
